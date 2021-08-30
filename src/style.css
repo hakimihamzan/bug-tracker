@@ -1,0 +1,69 @@
+/* choose roboto 400 and 700 then get the css url */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+i.mr-5 {
+  margin-right: 5px;
+}
+
+body {
+  background-color: #f9fafd;
+  font-family: "Roboto", sans-serif;
+  max-width: 1920;
+  font-size: 1rem;
+}
+
+.nav-container {
+  background: #313a46;
+  color: #748191;
+  max-width: fit-content;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+}
+
+.nav-container img {
+  margin: 1rem;
+  padding: 0;
+}
+
+.side-btn-container {
+  position: relative;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-btn {
+  text-align: center;
+  margin: 20px auto;
+  width: 100%;
+  /* justify-content: center; */
+}
+
+.login {
+}
+
+.white-topbar {
+  height: 3.5rem;
+  width: 100vw;
+  background-color: white;
+  position: fixed;
+  z-index: -1;
+}
+
+#app {
+  background-color: aqua;
+  position: absolute;
+  top: 21%;
+  right: 10px;
+  height: 90%;
+  width: 700px;
+}
