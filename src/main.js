@@ -13,3 +13,25 @@ function removeClassNameFromNodes(allItems, classNameToRemove) {
     allItems[i].classList.remove(classNameToRemove);
   }
 }
+
+let loggedIn = false;
+
+let login = document.querySelector(".login button");
+let logout = document.querySelector(".welcome-drop2");
+let loginInfo = document.querySelector(".login-info");
+
+login.addEventListener("click", () => {
+  console.log(loggedIn);
+  loggedIn = true;
+  login.style.visibility = "hidden";
+  loginInfo.style.visibility = "hidden";
+  logout.style.visibility = "visible";
+});
+
+logout.addEventListener("click", () => {
+  console.log(loggedIn);
+  loggedIn = false;
+  login.style.visibility = "visible";
+  loginInfo.style.visibility = "visible";
+  logout.style.visibility = "hidden";
+});
