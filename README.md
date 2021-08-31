@@ -5,7 +5,7 @@ The most awesome bug tracker (issue reporting) website you will ever see. Design
 ## Stack
 
 - JavaScript + HTML & CSS
-- Firebase (Google Authentication + Firebase)
+- Firebase (Google Authentication + Firestore)
 
 ## Inspired by
 
