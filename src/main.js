@@ -21,7 +21,6 @@ let logout = document.querySelector(".welcome-drop2");
 let loginInfo = document.querySelector(".login-info");
 
 login.addEventListener("click", () => {
-  console.log(loggedIn);
   loggedIn = true;
   login.style.visibility = "hidden";
   loginInfo.style.visibility = "hidden";
@@ -29,9 +28,10 @@ login.addEventListener("click", () => {
 });
 
 logout.addEventListener("click", () => {
-  console.log(loggedIn);
   loggedIn = false;
   login.style.visibility = "visible";
   loginInfo.style.visibility = "visible";
   logout.style.visibility = "hidden";
 });
+
+let userGreetings = document.querySelector(".user-greet");
