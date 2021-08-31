@@ -8,22 +8,51 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" type="image/svg+xml" href="img/favicon.svg" />
     <link rel="alternate icon" href="img/favicon.ico" />
-    <title>Bug Tracker -Submit Issues</title>
+    <title>Bug Tracker - Submit Issues</title>
   </head>
   <body>
     <div class="nav-container">
-      <img src="img/logo.svg" alt="bug tracker logo" />
+      <img id="logo" src="img/logo.svg" alt="bug tracker logo" />
       <div class="side-btn-container">
-        <div class="side-btn"><i class="mr-5 fab fa-accessible-icon"></i> Dashboard</div>
-        <div class="side-btn"><i class="mr-5 fab fa-angellist"></i> Home</div>
-        <div class="side-btn"><i class="mr-5 fas fa-archway"></i> Review Bug</div>
-        <div class="side-btn"><i class="mr-5 fas fa-bed"></i> Assign Bug</div>
-        <div class="side-btn"><i class="mr-5 fas fa-broom"></i> Something</div>
+        <div class="side-btn">
+          <img class="filter-grey" src="img/indeterminate_check_box_white_24dp.svg" alt="login" />
+          <div class="inline">Unassigned</div>
+          <div class="inline number-unassigned" id="bug-number">69</div>
+        </div>
+        <div class="side-btn">
+          <img class="filter-grey" src="img/person_outline_white_24dp.svg" alt="login" />
+          <div class="inline">Assigned to You</div>
+          <div class="inline number-assigned-to-you" id="bug-number">6</div>
+        </div>
+        <div class="side-btn">
+          <img class="filter-grey" src="img/group_white_24dp.svg" alt="login" />
+          <div class="inline">Assigned to Others</div>
+          <div class="inline number-assigned-to-others" id="bug-number">89</div>
+        </div>
+        <div class="side-btn">
+          <img class="filter-grey" src="img/visibility_white_24dp.svg" alt="login" />
+          <div class="inline">Active</div>
+          <div class="inline number-active" id="bug-number">0</div>
+        </div>
+        <div class="side-btn">
+          <img class="filter-grey" src="img/published_with_changes_white_24dp.svg" alt="login" />
+          <div class="inline">Inactive</div>
+          <div class="inline number-inactive" id="bug-number">3</div>
+        </div>
+        <div class="side-btn select">
+          <img class="filter-grey" src="img//radio_button_checked_white_24dp.svg" alt="login" />
+          <div class="inline">Every Bugs</div>
+          <div class="inline number-every-bugs" id="bug-number">25</div>
+        </div>
       </div>
-      <button class="login">Lorem, ipsum.</button>
     </div>
-    <div class="white-topbar"></div>
-    <div id="app"></div>
+    <div class="white-topbar">
+      <div class="login">
+        <div class="login-text">Sign in with Google</div>
+        <img src="img/google.svg" alt="google icon" />
+      </div>
+    </div>
+    <!-- <div id="app"></div> -->
     <script src="main.js"></script>
   </body>
 </html>

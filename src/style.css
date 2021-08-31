@@ -7,8 +7,12 @@
   box-sizing: border-box;
 }
 
-i.mr-5 {
+/* i.mr-5 {
   margin-right: 5px;
+} */
+
+.inline {
+  display: inline;
 }
 
 body {
@@ -29,27 +33,60 @@ body {
   left: 0;
 }
 
-.nav-container img {
+/* .filter-grey {
+  filter: invert(50%) sepia(19%) saturate(329%) hue-rotate(173deg) brightness(96%) contrast(89%);
+} */
+
+#logo {
   margin: 1rem;
   padding: 0;
 }
 
 .side-btn-container {
-  position: relative;
-  height: 400px;
+  height: auto;
   display: flex;
   flex-direction: column;
-}
-
-.side-btn {
-  text-align: center;
-  margin: 20px auto;
   width: 100%;
+  background-color: #313a46;
+  /* align-items: center; */
   /* justify-content: center; */
 }
 
-.login {
+.side-btn {
+  /* text-align: center; */
+  margin: 5px 10px;
+  padding: 13px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: #424a55;
 }
+
+.side-btn:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+.side-btn-container .select {
+  background: #667db6; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  color: #fff;
+  border-radius: 2px;
+}
+
+.side-btn img {
+  /* transform: translateY(5px); */
+  margin-right: 1rem;
+}
+
+#bug-number {
+  margin-left: auto;
+}
+
+/* .login {
+} */
 
 .white-topbar {
   height: 3.5rem;
@@ -57,13 +94,22 @@ body {
   background-color: white;
   position: fixed;
   z-index: -1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.login {
+  /* height: 120%; */
+  font-size: 1.3rem;
+  padding: 0.9rem 25px;
+  height: auto;
+  background-color: teal;
+}
+
+.login img {
 }
 
 #app {
   background-color: aqua;
-  position: absolute;
-  top: 21%;
-  right: 10px;
-  height: 90%;
-  width: 700px;
 }
