@@ -4,9 +4,8 @@ The most awesome bug tracker (issue reporting) website you will ever see. Design
 
 ## Stack
 
-- JavaScript + HTML & CSS
+- Vanilla JS (without any bundlers) + HTML & CSS
 - Firebase (Google Authentication + Firestore)
-- Dev Tools (npm, parcel)
 
 ## Inspired by
 
