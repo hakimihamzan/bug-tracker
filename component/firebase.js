@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
-import { GoogleAuthProvider, getAuth, onAuthStateChanged, signInWithRedirect, signOut, createUserWithEmailAndPassword, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
-import { collection, doc, onSnapshot, deleteDoc, getDocs, getFirestore, addDoc, updateDoc, query, where } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+import { GoogleAuthProvider, getAuth, onAuthStateChanged, signInWithRedirect, signOut, createUserWithEmailAndPassword, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+import { collection, doc, Timestamp, onSnapshot, deleteDoc, getDocs, getFirestore, addDoc, updateDoc, query, where } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -16,6 +16,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 // first thing first -- allow google sign-in in authentication firebase
 const provider = new GoogleAuthProvider();
@@ -53,23 +54,86 @@ function signOutMain() {
     });
 }
 
+// --------------------------------------------------
+
+const bugsCollection = collection(db, "bugs");
+
+async function creatingBug(assigned_to, closed_at, created_at, description, github_repo, submitter, title) {
+  try {
+    const docRef = await addDoc(bugsCollection, {
+      assigned_to: assigned_to,
+      closed_at: closed_at,
+      created_at: created_at,
+      description: description,
+      github_repo: github_repo,
+      submitter: submitter,
+      title: title,
+      bugs: "bugs",
+    });
+
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+
+async function deleteBug(uid) {
+  await deleteDoc(doc(db, "bugs", uid));
+}
+
+async function snapShotListen() {
+  const q = query(collection(db, "bugs"), where("bugs", "==", "bugs"));
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+      if (change.type === "added") {
+        console.log("Added something: ", change.doc.data(), change.doc.id);
+      }
+      if (change.type === "modified") {
+        console.log("Modified something: ", change.doc.data(), change.doc.id);
+      }
+      if (change.type === "removed") {
+        console.log("removed something: ", change.doc.data(), change.doc.id);
+      }
+    });
+  });
+}
+
+async function updateBug(assigned_to, closed_at, created_at, description, github_repo, submitter, title, uid) {
+  const tempRef = doc(db, "bugs", uid);
+  await updateDoc(tempRef, {
+    assigned_to: assigned_to,
+    closed_at: closed_at,
+    created_at: created_at,
+    description: description,
+    github_repo: github_repo,
+    submitter: submitter,
+    title: title,
+    bugs: "bugs",
+  });
+}
+
+async function demoAccountSignIn(email, password) {
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      console.log(userCredential);
+      // Signed in
+      const user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+}
+
 let firebaseUtils = {
-  //   //checking if user logged in or not
-  //   onAuthStateChanged: () => {
-  //     let isLoggedin = false;
-  //     onAuthStateChanged(auth, (user) => {
-  //       if (user != null) {
-  //         console.log("logged in: " + user.displayName);
-  //         isLoggedin = true;
-  //       } else {
-  //         console.log("no user");
-  //         isLoggedin = false;
-  //       }
-  //       return isLoggedin;
-  //     });
-  //   },
   signInWithPopup: signInWithPopupMain,
   signOut: signOutMain,
+  addDoc: creatingBug,
+  deleteDoc: deleteBug,
+  onSnapshot: snapShotListen,
+  updateDoc: updateBug,
+  signInWithEmailAndPassword: demoAccountSignIn,
 };
 
-export { firebaseUtils, auth };
+export { firebaseUtils, auth, Timestamp };

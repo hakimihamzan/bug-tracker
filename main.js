@@ -1,7 +1,7 @@
-import { auth, firebaseUtils } from "./component/firebase.js";
+import { auth, firebaseUtils, Timestamp } from "./component/firebase.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
 
-// sidabar nav buttons behavior
+// sidebar nav buttons behavior
 // removing class names from list of nodes
 function removeClassNameFromNodes(allItems, classNameToRemove) {
   for (let i = 0; i < allItems.length; i++) {
@@ -32,9 +32,15 @@ isUserLoggedIn();
 function isUserLoggedIn() {
   onAuthStateChanged(auth, (user) => {
     if (user != null) {
-      console.log("hello " + user.displayName);
-      userGreetings.innerHTML = `Hello, ${user.displayName}`;
-      changeLogInOutBtnVisibility(login, loginInfo, logout, true);
+      if (user.displayName != null) {
+        console.log("hello " + user.displayName);
+        userGreetings.innerHTML = `Hello, ${user.displayName}`;
+        changeLogInOutBtnVisibility(login, loginInfo, logout, true);
+      } else {
+        console.log("hello " + user.email);
+        userGreetings.innerHTML = `Hello, ${user.email}`;
+        changeLogInOutBtnVisibility(login, loginInfo, logout, true);
+      }
     } else {
       console.log("no user loggedin");
       userGreetings.innerHTML = "";
@@ -68,3 +74,33 @@ logout.addEventListener("click", () => {
   // change the dom after logout
   isUserLoggedIn();
 });
+
+let a = "dummyedited2";
+let clos = "";
+let creat = Timestamp.now();
+let desc = "edit sidebar please1";
+let githu = "https://github.com/hakimihamzan/threeJS";
+let submitr = "mr man";
+let title = "sidebar sucks2";
+let uid = "6BBYVXknuKi6uNpSgsMf";
+
+// firebaseUtils.addDoc(a, clos, creat, desc, githu, submitr, title);
+// firebaseUtils.onSnapshot();
+// firebaseUtils.deleteDoc("cCy3bcytFYaJUobI0UHm");
+// firebaseUtils.updateDoc(a, clos, creat, desc, githu, submitr, title, uid);
+
+// submitter can create tickets and get tickets -- subscribe to tickets - checked
+// developer can subscribe, create, update - checked
+// project manager can crud - checked
+
+let managerDemo = {
+  email: "manager@goo.com",
+  password: "passwordtest",
+};
+let developerDemo = {
+  email: "dev@goo.com",
+  password: "passwordtest",
+};
+
+// signing in --demo accounts
+// firebaseUtils.signInWithEmailAndPassword(managerDemo.email, managerDemo.password);
