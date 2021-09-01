@@ -33,6 +33,7 @@ body {
   height: 100vh;
   position: fixed;
   left: 0;
+  z-index: 5;
 }
 
 #logo {
@@ -84,18 +85,23 @@ body {
   width: 100vw;
   background-color: white;
   position: fixed;
-  z-index: -1;
+  z-index: 3;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 
 .login {
+  visibility: hidden;
   font-size: 1.3rem;
   padding: 0.9rem 5px;
   height: auto;
   display: flex;
   position: relative;
+}
+
+.login-info {
+  visibility: hidden;
 }
 
 .button-for {
@@ -135,7 +141,7 @@ body {
   background-color: #5b6069;
   color: #fff;
   width: 9vw;
-  /* margin-right: 8px; */
+  z-index: 5;
 }
 
 .hidden {
@@ -183,7 +189,7 @@ body {
 #app {
   background-color: rgb(195, 247, 247);
   height: 600px;
-  width: 600px;
+  width: 900px;
   position: absolute;
   top: 7rem;
   left: 20rem;
