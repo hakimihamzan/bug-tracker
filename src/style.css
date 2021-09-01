@@ -20,6 +20,7 @@ body {
   font-family: "Roboto", sans-serif;
   max-width: 1920;
   font-size: 1rem;
+  /* overflow: hidden; */
 }
 
 .nav-container {
@@ -34,10 +35,6 @@ body {
   left: 0;
 }
 
-/* .filter-grey {
-  filter: invert(50%) sepia(19%) saturate(329%) hue-rotate(173deg) brightness(96%) contrast(89%);
-} */
-
 #logo {
   margin: 1rem;
   padding: 0;
@@ -50,12 +47,9 @@ body {
   flex-direction: column;
   width: 100%;
   background-color: #313a46;
-  /* align-items: center; */
-  /* justify-content: center; */
 }
 
 .side-btn {
-  /* text-align: center; */
   margin: 5px 10px;
   padding: 13px;
   display: flex;
@@ -78,16 +72,12 @@ body {
 }
 
 .side-btn img {
-  /* transform: translateY(5px); */
   margin-right: 1rem;
 }
 
 #bug-number {
   margin-left: auto;
 }
-
-/* .login {
-} */
 
 .white-topbar {
   height: 3.5rem;
@@ -123,19 +113,18 @@ body {
   z-index: 5;
   font-size: 1rem;
   padding: 9px 19px;
-  position: absolute;
+  position: fixed;
   left: 19rem;
   top: 0.5rem;
-  /* transform: translateX(-60vw); */
 }
 
-.welcome-drop2 {
+.logout {
   border: 0.005px solid lightgrey;
   border-radius: 5px;
   visibility: hidden;
   transition: ease-in;
   cursor: pointer;
-  position: absolute;
+  position: fixed;
   right: 2px;
   top: 5px;
   padding: 8px 10px;
@@ -146,6 +135,7 @@ body {
   background-color: #5b6069;
   color: #fff;
   width: 9vw;
+  /* margin-right: 8px; */
 }
 
 .hidden {
@@ -158,6 +148,7 @@ body {
 }
 
 .login-with-google-btn {
+  margin-right: 15px;
   transition: background-color 0.3s, box-shadow 0.3s;
   cursor: pointer;
   padding: 8px 20px 8px 20px;
@@ -190,5 +181,10 @@ body {
 }
 
 #app {
-  background-color: aqua;
+  background-color: rgb(195, 247, 247);
+  height: 600px;
+  width: 600px;
+  position: absolute;
+  top: 7rem;
+  left: 20rem;
 }
