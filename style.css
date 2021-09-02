@@ -186,8 +186,60 @@ body {
   cursor: not-allowed;
 }
 
+.demo {
+  visibility: hidden;
+  background-color: white;
+  border: 1px solid rgb(226, 226, 226);
+  color: black;
+  padding: 10px 20px;
+  z-index: 5;
+  border-radius: 3px;
+  position: fixed;
+  top: 0.3rem;
+  left: 42rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.demo img {
+  margin-right: 3px;
+}
+
+.demo:hover {
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.demo-popup {
+  visibility: hidden;
+  width: 5rem;
+  height: fit-content;
+  position: fixed;
+  top: 0.45rem;
+  left: 52rem;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+}
+
+.demo-popup button {
+  padding: 5px 5px;
+  background-color: #5b6069;
+  color: white;
+  border-radius: 3px;
+  width: 100%;
+  margin: 1px;
+  cursor: pointer;
+}
+
+.demo-popup button:hover {
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
 #app {
-  background-color: rgb(195, 247, 247);
+  background-color: rgb(250, 255, 255);
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
+
   height: 400px;
   width: 900px;
   position: absolute;

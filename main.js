@@ -11,7 +11,7 @@ function removeClassNameFromNodes(allItems, classNameToRemove) {
 
 let allSideButton = document.querySelectorAll(".side-btn");
 
-//adding click listener to each sidebar button
+//adding click listener to each sidebar button and added color
 for (let i = 0; i < allSideButton.length; i++) {
   let button = allSideButton[i];
   button.addEventListener("click", () => {
@@ -20,7 +20,27 @@ for (let i = 0; i < allSideButton.length; i++) {
   });
 }
 
-// login & logout functionality
+// demo sign in button dropdown
+let isDemoDropHidden = true;
+let demoButton = document.querySelector(".demo");
+demoButton.addEventListener("click", () => {
+  if (isDemoDropHidden) {
+    document.querySelector(".demo-popup").style.visibility = "visible";
+    isDemoDropHidden = false;
+  } else {
+    document.querySelector(".demo-popup").style.visibility = "hidden";
+    isDemoDropHidden = true;
+  }
+});
+// handling click outside of demo drop-down
+window.onclick = function (event) {
+  if (!event.target.matches(".demo")) {
+    document.querySelector(".demo-popup").style.visibility = "hidden";
+    isDemoDropHidden = true;
+  }
+};
+
+// login & logout behavior
 let login = document.querySelector(".login button");
 let logout = document.querySelector(".logout");
 let loginInfo = document.querySelector(".login-info");
@@ -28,10 +48,11 @@ let userGreetings = document.querySelector(".user-greet");
 
 isUserLoggedIn();
 
-//changing the dom based on state of user's login
+//changing the dom based on state of user's login, checking if already existing users
 function isUserLoggedIn() {
   onAuthStateChanged(auth, (user) => {
     if (user != null) {
+      demoButton.style.visibility = "hidden";
       if (user.displayName != null) {
         console.log("hello " + user.displayName);
         userGreetings.innerHTML = `Hello, ${user.displayName}`;
@@ -44,6 +65,7 @@ function isUserLoggedIn() {
     } else {
       console.log("no user loggedin");
       userGreetings.innerHTML = "";
+      demoButton.style.visibility = "visible";
       changeLogInOutBtnVisibility(login, loginInfo, logout, false);
     }
   });
@@ -75,6 +97,25 @@ logout.addEventListener("click", () => {
   isUserLoggedIn();
 });
 
+// --------------
+// manager and developer can only CRU but not delete - real manager can delete
+let managerDemo = {
+  email: "manager@goo.com",
+  password: "passwordtest",
+};
+let developerDemo = {
+  email: "dev@goo.com",
+  password: "passwordtest",
+};
+
+// demo account sign in
+document.querySelector(".dev").addEventListener("click", () => {
+  firebaseUtils.signInWithEmailAndPassword(developerDemo.email, developerDemo.password);
+});
+document.querySelector(".manager").addEventListener("click", () => {
+  firebaseUtils.signInWithEmailAndPassword(managerDemo.email, managerDemo.password);
+});
+
 let a = "dummyedited2";
 let clos = "";
 let creat = Timestamp.now();
@@ -92,15 +133,6 @@ let uid = "6BBYVXknuKi6uNpSgsMf";
 // submitter can create tickets and get tickets -- subscribe to tickets - checked
 // developer can subscribe, create, update - checked
 // project manager can crud - checked
-
-let managerDemo = {
-  email: "manager@goo.com",
-  password: "passwordtest",
-};
-let developerDemo = {
-  email: "dev@goo.com",
-  password: "passwordtest",
-};
 
 // signing in --demo accounts
 // firebaseUtils.signInWithEmailAndPassword(managerDemo.email, managerDemo.password);
