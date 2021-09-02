@@ -1,6 +1,6 @@
 import { auth, firebaseUtils, Timestamp } from "./component/firebase.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
-import { divAppend } from "./component/app.js";
+// import { divAppend } from "./component/app.js";
 
 // sidebar nav buttons behavior
 // removing class names from list of nodes

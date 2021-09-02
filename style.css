@@ -83,7 +83,7 @@ body {
   /* box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.03), 0 1px 1px rgba(0, 0, 0, 0.15); */
   height: 3.5rem;
   width: 100vw;
-  background-color: rgb(250, 250, 250);
+  background-color: rgb(245, 245, 245);
   position: fixed;
   z-index: 3;
   display: flex;
@@ -243,6 +243,61 @@ body {
   height: 100vh;
   width: 100vw;
   position: absolute;
+}
+
+/* table data color palette  */
+.submitted {
+  background-color: white;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+  color: #00008f;
+  padding: 5px;
+  font-size: smaller;
+  border-radius: 5px;
+}
+.pending {
+  color: #fadb43;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+  background-color: white;
+  padding: 5px;
+  font-size: smaller;
+  border-radius: 5px;
+}
+.inprogress {
+  color: #faa211;
+  background-color: white;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+  padding: 5px;
+  font-size: smaller;
+  border-radius: 5px;
+}
+.completed {
+  color: #6ece00;
+  background-color: white;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+  padding: 5px;
+  font-size: smaller;
+  border-radius: 5px;
+}
+.high {
+  background-color: #f50808;
+  color: white;
+  padding: 5px;
+  font-size: smaller;
+  border-radius: 5px;
+}
+.medium {
+  background-color: #ce0692;
+  color: white;
+  padding: 5px;
+  font-size: smaller;
+  border-radius: 5px;
+}
+.low {
+  background-color: #007e77;
+  color: white;
+  padding: 5px;
+  font-size: smaller;
+  border-radius: 5px;
 }
 
 table {

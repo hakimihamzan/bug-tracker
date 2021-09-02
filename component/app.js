@@ -23,11 +23,10 @@
 
 import { auth, firebaseUtils, Timestamp } from "./firebase.js";
 
-let divAppend = document.createElement("div");
-divAppend.classList.add("inner");
-
-divAppend.innerHTML = `
-
-`;
-
-export { divAppend };
+//table data color
+let submittedColor = "green";
+let pendingColor = "green";
+let completedColor = "green";
+let highPrioColor = "red";
+let mediumPrioColor = "red";
+let lowPrioColor = "yellow";
