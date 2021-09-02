@@ -1,5 +1,6 @@
 import { auth, firebaseUtils, Timestamp } from "./component/firebase.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+import { divAppend } from "./component/app.js";
 
 // sidebar nav buttons behavior
 // removing class names from list of nodes
@@ -98,7 +99,7 @@ logout.addEventListener("click", () => {
 });
 
 // --------------
-// manager and developer can only CRU but not delete - real manager can delete
+// managerDemo and developerDemo can only CRU but not delete - real manager can delete
 let managerDemo = {
   email: "manager@goo.com",
   password: "passwordtest",
@@ -116,23 +117,6 @@ document.querySelector(".manager").addEventListener("click", () => {
   firebaseUtils.signInWithEmailAndPassword(managerDemo.email, managerDemo.password);
 });
 
-let a = "dummyedited2";
-let clos = "";
-let creat = Timestamp.now();
-let desc = "edit sidebar please1";
-let githu = "https://github.com/hakimihamzan/threeJS";
-let submitr = "mr man";
-let title = "sidebar sucks2";
-let uid = "6BBYVXknuKi6uNpSgsMf";
-
-// firebaseUtils.addDoc(a, clos, creat, desc, githu, submitr, title);
-// firebaseUtils.onSnapshot();
-// firebaseUtils.deleteDoc("cCy3bcytFYaJUobI0UHm");
-// firebaseUtils.updateDoc(a, clos, creat, desc, githu, submitr, title, uid);
-
-// submitter can create tickets and get tickets -- subscribe to tickets - checked
-// developer can subscribe, create, update - checked
-// project manager can crud - checked
-
-// signing in --demo accounts
-// firebaseUtils.signInWithEmailAndPassword(managerDemo.email, managerDemo.password);
+//div coming from app.js
+// let app = document.querySelector("#app");
+// app.appendChild(divAppend);

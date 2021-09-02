@@ -16,7 +16,6 @@
 }
 
 body {
-  background-color: #f9fafd;
   font-family: "Roboto", sans-serif;
   max-width: 1920;
   font-size: 1rem;
@@ -81,9 +80,10 @@ body {
 }
 
 .white-topbar {
+  /* box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.03), 0 1px 1px rgba(0, 0, 0, 0.15); */
   height: 3.5rem;
   width: 100vw;
-  background-color: white;
+  background-color: rgb(250, 250, 250);
   position: fixed;
   z-index: 3;
   display: flex;
@@ -118,10 +118,12 @@ body {
 .search-bar {
   z-index: 5;
   font-size: 1rem;
-  padding: 9px 19px;
+  padding: 11px 20px;
   position: fixed;
   left: 19rem;
   top: 0.5rem;
+  border: 1px solid rgb(226, 226, 226);
+  /* border-width: thin; */
 }
 
 .logout {
@@ -188,15 +190,15 @@ body {
 
 .demo {
   visibility: hidden;
-  background-color: white;
   border: 1px solid rgb(226, 226, 226);
+  background-color: white;
   color: black;
   padding: 10px 20px;
   z-index: 5;
   border-radius: 3px;
   position: fixed;
   top: 0.3rem;
-  left: 42rem;
+  left: 20rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -215,8 +217,8 @@ body {
   width: 5rem;
   height: fit-content;
   position: fixed;
-  top: 0.45rem;
-  left: 52rem;
+  top: 0.29rem;
+  left: 30rem;
   z-index: 5;
   display: flex;
   flex-direction: column;
@@ -224,8 +226,9 @@ body {
 
 .demo-popup button {
   padding: 5px 5px;
-  background-color: #5b6069;
-  color: white;
+  background-color: white;
+  color: black;
+  border: 1px solid rgb(226, 226, 226);
   border-radius: 3px;
   width: 100%;
   margin: 1px;
@@ -237,12 +240,51 @@ body {
 }
 
 #app {
-  background-color: rgb(250, 255, 255);
-  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
-
-  height: 400px;
-  width: 900px;
+  height: 100vh;
+  width: 100vw;
   position: absolute;
-  top: 7rem;
+}
+
+table {
+  width: 100%;
+  position: inherit;
+  top: 5rem;
   left: 20rem;
+  border-radius: 5px;
+  border-collapse: collapse;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  width: 70vw;
+  margin: 20px;
+}
+
+th {
+  padding: 10px 20px;
+  background-color: #f3f3f3;
+}
+
+td {
+  border: thin solid rgb(248, 248, 248);
+  padding: 10px 20px;
+  line-height: 1.5;
+}
+
+tr:hover {
+  background-color: rgb(248, 248, 248);
+}
+
+.status {
+  background-color: cadetblue;
+  color: white;
+  margin: 1px;
+  padding: 6px 4px;
+  font-size: small;
+  border-radius: 5px;
+}
+
+.priority {
+  border-radius: 5px;
+  font-size: small;
+  background-color: tomato;
+  color: white;
+  padding: 6px 4px;
 }

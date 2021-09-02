@@ -11,7 +11,7 @@
     <title>Bug Tracker - Submit Issues</title>
   </head>
   <body>
-    <input class="search-bar" type="text" placeholder="Search everything ..." />
+    <!-- <input class="search-bar" type="text" placeholder="Search everything ..." /> -->
 
     <button class="demo">
       <img src="img/manage_accounts_black_24dp.svg" alt="management" />
@@ -70,8 +70,44 @@
       </div>
     </div>
 
-    <div id="app"></div>
+    <div id="app">
+      <table>
+        <tr>
+          <th>#</th>
+          <th>Submitter</th>
+          <th>Issue</th>
+          <th>Priority</th>
+          <th>Assigned</th>
+          <th>Updated</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Kimi</td>
+          <td><span class="status">SUBMITTED</span> H1 not popping out Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, sed! Vel nam distinctio incidunt at.</td>
+          <td><span class="priority">High</span></td>
+          <td>mamatorrel</td>
+          <td>1 day ago</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Kimi</td>
+          <td><span class="status">PENDING</span> H1 not popping out Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, sed! Vel nam distinctio incidunt at.</td>
+          <td>High</td>
+          <td>dev</td>
+          <td>1 day ago</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Kimi</td>
+          <td>H1 not popping out</td>
+          <td>High</td>
+          <td>jack</td>
+          <td><i>1 day ago</i></td>
+        </tr>
+      </table>
+    </div>
     <script type="module" src="component/firebase.js"></script>
+    <script type="module" src="component/app.js"></script>
     <script type="module" src="main.js"></script>
   </body>
 </html>
