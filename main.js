@@ -118,3 +118,19 @@ document.querySelector(".dev").addEventListener("click", () => {
 document.querySelector(".manager").addEventListener("click", () => {
   firebaseUtils.signInWithEmailAndPassword(managerDemo.email, managerDemo.password);
 });
+
+//submit a bug
+let addBug = document.querySelector(".add-bug");
+
+addBug.addEventListener("click", () => {
+  document.querySelector(".modal-show").style.transform = "translateY(0)";
+  document.querySelector(".modal-space").classList.add("modal-anim");
+});
+
+// handling click outside of demo drop-down
+window.onclick = function (event) {
+  if (event.target.matches(".modal-show")) {
+    document.querySelector(".modal-show").style.transform = "translateY(-150%)";
+    document.querySelector(".modal-space").classList.remove("modal-anim");
+  }
+};

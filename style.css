@@ -20,16 +20,14 @@
 }
 
 body {
-  box-sizing: border-box;
-  height: max-content;
-  margin-bottom: 50%;
+  /* box-sizing: border-box; */
+  /* height: max-content; */
+  /* margin-bottom: 50%; */
   overflow-x: hidden;
   overflow-y: scroll;
   font-family: "Roboto", sans-serif;
   max-width: 1920;
-  font-size: 1rem;
-
-  /* overflow: hidden; */
+  /* font-size: 1rem; */
 }
 
 .nav-container {
@@ -53,7 +51,6 @@ body {
 .side-btn-container {
   height: auto;
   display: flex;
-
   flex-direction: column;
   width: 100%;
   background-color: #313a46;
@@ -181,7 +178,7 @@ body {
   color: #757575;
   font-size: 14px;
   font-weight: 500;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: inherit;
   background-color: white;
   background-repeat: no-repeat;
   background-position: 12px 11px;
@@ -195,12 +192,6 @@ body {
 .login-with-google-btn:focus {
   outline: none;
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25), 0 0 0 3px #c8dafc;
-}
-.login-with-google-btn:disabled {
-  filter: grayscale(100%);
-  background-color: #ebebeb;
-  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
-  cursor: not-allowed;
 }
 
 .demo {
@@ -255,14 +246,12 @@ body {
 }
 
 #app {
-  /* height: 100vh; */
   height: auto;
   width: 100vw;
   position: absolute;
   transition: all 1s;
   padding-bottom: 5rem;
   margin-bottom: 5rem;
-  /* transform: translateY(3rem);   if button add a ticket is showing, this also means when user is logged in  */
 }
 
 /* table data color palette  */
@@ -320,7 +309,31 @@ body {
   border-radius: 5px;
 }
 
+@keyframes mytable {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-30px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes mytable2 {
+  0% {
+    opacity: 0;
+  }
+  85% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 table.data {
+  /* animation: mytable 2s ease-out; */
   width: 100%;
   position: relative;
   top: 3rem;
@@ -333,6 +346,7 @@ table.data {
 }
 
 th {
+  animation: mytable2 0.5s ease-out;
   padding: 10px 20px;
   background-color: #f3f3f3;
 }
@@ -345,7 +359,7 @@ td {
 
 tr:hover {
   background-color: rgb(248, 248, 248);
-  transition: 1s;
+  /* transition: 1s; */
 }
 
 .add-bug {
@@ -363,11 +377,11 @@ tr:hover {
   cursor: pointer;
 }
 
+.add-bug:hover {
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+}
 .td-anim {
-  animation: mymove 1s; /* 
-  transform: rotateZ(360deg);
-  transform: translateX(30px); */
-  transition: 0.5s;
+  animation: mymove 0.5s ease-out;
 }
 
 @keyframes mymove {
@@ -375,13 +389,102 @@ tr:hover {
     transform: translateX(0);
   }
   25% {
-    transform: translateX(30px);
+    transform: translateX(15px);
   }
   100% {
     transform: translateX(0);
   }
 }
 
-.add-bug:hover {
+.modal-show {
+  transition: transform 0.8s;
+  transform: translateY(-150%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(85, 85, 85, 0.658);
+}
+
+.modal-form {
+  border-radius: 10px;
+  background-color: white;
+  margin: 4% auto;
+  height: 70%;
+  width: 60%;
+  display: flex;
+}
+
+@keyframes mymove2 {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(15px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.modal-space {
+  padding: 4rem 2rem;
+  font-size: 3rem;
+  font-weight: bold;
+  border-radius: 10px;
+  width: 50%;
+  background: #5f2c82; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #49a09d, #5f2c82); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #49a09d, #5f2c82); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  color: white;
+}
+.modal-anim {
+  animation: mymove2 1.6s ease-in-out;
+}
+
+.form {
+  width: 50%;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form input {
+  border-radius: 5px;
+  border: thin solid rgb(248, 248, 248);
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  margin: 10px;
+}
+
+.form input:focus {
+  outline-width: 0;
+}
+
+.input {
+  border-radius: 5px;
+  border: thin solid rgb(248, 248, 248);
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  margin: 10px;
+  color: #313a46;
+}
+
+.input-desc {
+  height: 200px;
+}
+
+.input:focus {
+  outline-width: 0;
+}
+
+.btn {
+  background-color: blueviolet;
+  color: white;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
 }

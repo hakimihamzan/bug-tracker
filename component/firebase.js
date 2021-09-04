@@ -150,6 +150,10 @@ function snapShotListen() {
       }
       if (change.type === "removed") {
         console.log("removed something: ", change.doc.data(), change.doc.id);
+        let tr = document.querySelector(`[data-id='${change.doc.id}']`);
+        let allTD = document.querySelectorAll(".td-anim");
+        removeClassNameFromNodes(allTD, "td-anim");
+        document.querySelector("table.data").removeChild(tr);
       }
     });
   });
