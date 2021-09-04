@@ -1,13 +1,13 @@
 // this file handle CRUD relating to table
 
-// let a = "dummyedited2";
-// let clos = "";
-// let creat = Timestamp.now();
-// let desc = "edit sidebar please1";
-// let githu = "https://github.com/hakimihamzan/threeJS";
-// let submitr = "mr man";
-// let title = "sidebar sucks2";
-// let uid = "6BBYVXknuKi6uNpSgsMf";
+let a = "dummyedited2";
+let clos = "";
+let creat = Timestamp.now();
+let desc = "edit sidebar please1";
+let githu = "https://github.com/hakimihamzan/threeJS";
+let submitr = "mr man";
+let title = "sidebar sucks2";
+let uid = "6BBYVXknuKi6uNpSgsMf";
 
 // firebaseUtils.addDoc(a, clos, creat, desc, githu, submitr, title);
 // firebaseUtils.onSnapshot();
@@ -23,10 +23,5 @@
 
 import { auth, firebaseUtils, Timestamp } from "./firebase.js";
 
-//table data color
-let submittedColor = "green";
-let pendingColor = "green";
-let completedColor = "green";
-let highPrioColor = "red";
-let mediumPrioColor = "red";
-let lowPrioColor = "yellow";
+let snapshotObject = firebaseUtils.onSnapshot();
+console.log(snapshotObject);

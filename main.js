@@ -53,6 +53,10 @@ isUserLoggedIn();
 function isUserLoggedIn() {
   onAuthStateChanged(auth, (user) => {
     if (user != null) {
+      document.getElementById("app").style.transform = "translateY(1rem)";
+      document.querySelector(".add-bug").style.transform = "translateY(-40px)";
+      document.querySelector(".add-bug").style.opacity = "100";
+      document.querySelector(".add-bug").style.visibility = "visible";
       demoButton.style.visibility = "hidden";
       if (user.displayName != null) {
         console.log("hello " + user.displayName);
@@ -64,6 +68,10 @@ function isUserLoggedIn() {
         changeLogInOutBtnVisibility(login, loginInfo, logout, true);
       }
     } else {
+      document.querySelector(".add-bug").style.transform = "translateY(10px)";
+      document.querySelector(".add-bug").style.opacity = "0";
+      document.querySelector(".add-bug").style.visibility = "hidden";
+      document.getElementById("app").style.transform = "translateY(0)";
       console.log("no user loggedin");
       userGreetings.innerHTML = "";
       demoButton.style.visibility = "visible";
@@ -116,7 +124,3 @@ document.querySelector(".dev").addEventListener("click", () => {
 document.querySelector(".manager").addEventListener("click", () => {
   firebaseUtils.signInWithEmailAndPassword(managerDemo.email, managerDemo.password);
 });
-
-//div coming from app.js
-// let app = document.querySelector("#app");
-// app.appendChild(divAppend);
