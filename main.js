@@ -27,11 +27,17 @@ demoButton.addEventListener("click", () => {
     isDemoDropHidden = true;
   }
 });
-// handling click outside of demo drop-down
 window.onclick = function (event) {
+  // handling click outside of demo drop-down
   if (!event.target.matches(".demo")) {
     document.querySelector(".demo-popup").style.visibility = "hidden";
     isDemoDropHidden = true;
+  }
+
+  // handling modal clicked outside during add a bug
+  if (event.target.matches(".modal-show")) {
+    document.querySelector(".modal-show").style.transform = "translateY(-150%)";
+    document.querySelector(".modal-space").classList.remove("modal-anim");
   }
 };
 
@@ -126,11 +132,3 @@ addBug.addEventListener("click", () => {
   document.querySelector(".modal-show").style.transform = "translateY(0)";
   document.querySelector(".modal-space").classList.add("modal-anim");
 });
-
-// handling click outside of demo drop-down
-window.onclick = function (event) {
-  if (event.target.matches(".modal-show")) {
-    document.querySelector(".modal-show").style.transform = "translateY(-150%)";
-    document.querySelector(".modal-space").classList.remove("modal-anim");
-  }
-};
