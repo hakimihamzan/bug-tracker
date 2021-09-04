@@ -1,22 +1,16 @@
 import { auth, firebaseUtils, Timestamp } from "./component/firebase.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
-// import { divAppend } from "./component/app.js";
+
+//call for initial data
+firebaseUtils.onSnapshot();
 
 // sidebar nav buttons behavior
-// removing class names from list of nodes
-function removeClassNameFromNodes(allItems, classNameToRemove) {
-  for (let i = 0; i < allItems.length; i++) {
-    allItems[i].classList.remove(classNameToRemove);
-  }
-}
-
 let allSideButton = document.querySelectorAll(".side-btn");
-
 //adding click listener to each sidebar button and added color
 for (let i = 0; i < allSideButton.length; i++) {
   let button = allSideButton[i];
   button.addEventListener("click", () => {
-    removeClassNameFromNodes(allSideButton, "select");
+    firebaseUtils.removeClassNameFromNodes(allSideButton, "select");
     button.classList.add("select");
   });
 }
@@ -107,7 +101,7 @@ logout.addEventListener("click", () => {
 });
 
 // --------------
-// managerDemo and developerDemo can only CRU but not delete - real manager can delete
+// managerDemo can CRUD, devDemo can CRU
 let managerDemo = {
   email: "manager@goo.com",
   password: "passwordtest",

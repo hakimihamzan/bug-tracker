@@ -27,10 +27,10 @@ function signInWithPopupMain() {
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
-      console.log(token);
+      // console.log(token);
       // The signed-in user info.
       const user = result.user;
-      console.log(user);
+      // console.log(user);
       // ...
     })
     .catch((error) => {
@@ -87,97 +87,64 @@ function removeClassNameFromNodes(allItems, classNameToRemove) {
   }
 }
 
-async function snapShotListen() {
-  const q = query(collection(db, "bugs"), where("bugs", "==", "bugs"));
+function createTableRow(snapshotChange) {
+  let bugStatus;
+  let prio;
+  if (snapshotChange.doc.data().status == "pending") {
+    bugStatus = "PENDING";
+  } else if (snapshotChange.doc.data().status == "submitted") {
+    bugStatus = "SUBMITTED";
+  } else if (snapshotChange.doc.data().status == "inprogress") {
+    bugStatus = "IN PROGRESS";
+  } else if (snapshotChange.doc.data().status == "completed") {
+    bugStatus = "COMPLETED";
+  }
+  if (snapshotChange.doc.data().prio == "high") {
+    prio = "High";
+  } else if (snapshotChange.doc.data().prio == "medium") {
+    prio = "Medium";
+  } else if (snapshotChange.doc.data().prio == "low") {
+    prio = "Low";
+  }
+
+  let newTRData = document.createElement("tr");
+  newTRData.classList.add("td-anim");
+  newTRData.setAttribute("data-id", snapshotChange.doc.id);
+
+  newTRData.innerHTML = `
+      <td>2</td>
+      <td>${snapshotChange.doc.data().submitter}</td>
+      <td><span class="${snapshotChange.doc.data().status}">${bugStatus}</span> ${snapshotChange.doc.data().title} - ${snapshotChange.doc.data().description}</td>
+      <td><span class="${snapshotChange.doc.data().prio}">${prio}</span></td>
+      <td>${snapshotChange.doc.data().assigned_to}</td>
+      <td>1 day ago</td>
+  `;
+  return newTRData;
+}
+
+function snapShotListen() {
+  const q = query(bugsCollection, where("bugs", "==", "bugs"));
   const unsubscribe = onSnapshot(q, (snapshot) => {
     snapshot.docChanges().forEach((change) => {
       if (change.type === "added") {
-        console.log("Added something: ", change.doc.data(), change.doc.id);
-        let statusH;
-        let prio;
-        if (change.doc.data().status == "pending") {
-          statusH = "PENDING";
-        } else if (change.doc.data().status == "submitted") {
-          statusH = "SUBMITTED";
-        } else if (change.doc.data().status == "inprogress") {
-          statusH = "IN PROGRESS";
-        } else if (change.doc.data().status == "completed") {
-          statusH = "COMPLETED";
-        }
-        if (change.doc.data().prio == "high") {
-          prio = "High";
-        } else if (change.doc.data().prio == "medium") {
-          prio = "Medium";
-        } else if (change.doc.data().prio == "low") {
-          prio = "Low";
-        }
+        // console.log("Added something: ", change.doc.data(), change.doc.id);
 
-        const tr = `
-        <tr class="td-anim" data-id="${change.doc.id}">
-          <td>2</td>
-          <td>${change.doc.data().submitter}</td>
-          <td><span class="${change.doc.data().status}">${statusH}</span> ${change.doc.data().title} - ${change.doc.data().description}</td>
-          <td><span class="${change.doc.data().prio}">${prio}</span></td>
-          <td>${change.doc.data().assigned_to}</td>
-          <td>1 day ago</td>
-        </tr>
-        `;
+        let newTRData = createTableRow(change);
 
-        document.querySelector("table.data").insertAdjacentHTML("beforeend", tr);
+        document.querySelector("table.data").appendChild(newTRData);
       }
       if (change.type === "modified") {
-        console.log("Modified something: ", change.doc.data(), change.doc.id);
+        // console.log("Modified something: ", change.doc.data(), change.doc.id);
 
+        // animation purpose
         let allTD = document.querySelectorAll(".td-anim");
         removeClassNameFromNodes(allTD, "td-anim");
 
-        let statusH;
-        let prio;
-        if (change.doc.data().status == "pending") {
-          statusH = "PENDING";
-        } else if (change.doc.data().status == "submitted") {
-          statusH = "SUBMITTED";
-        } else if (change.doc.data().status == "inprogress") {
-          statusH = "IN PROGRESS";
-        } else if (change.doc.data().status == "completed") {
-          statusH = "COMPLETED";
-        }
-        if (change.doc.data().prio == "high") {
-          prio = "High";
-        } else if (change.doc.data().prio == "medium") {
-          prio = "Medium";
-        } else if (change.doc.data().prio == "low") {
-          prio = "Low";
-        }
-
+        // find the row that is modified
         let oldTRData = document.querySelector(`[data-id='${change.doc.id}']`);
         let parentToReplace = oldTRData.parentElement;
 
-        let newTRData = document.createElement("tr");
-        newTRData.classList.add("td-anim");
-        newTRData.setAttribute("data-id", change.doc.id);
-
-        newTRData.innerHTML = `
-        <tr>
-          <td>2</td>
-          <td>${change.doc.data().submitter}</td>
-          <td><span class="${change.doc.data().status}">${statusH}</span> ${change.doc.data().title} - ${change.doc.data().description}</td>
-          <td><span class="${change.doc.data().prio}">${prio}</span></td>
-          <td>${change.doc.data().assigned_to}</td>
-          <td>1 day ago</td>
-        </tr>
-        `;
-
-        // const tr = `
-        // <tr data-id="${change.doc.id}">
-        //   <td>2</td>
-        //   <td>${change.doc.data().submitter}</td>
-        //   <td><span class="${change.doc.data().status}">STATUS</span> ${change.doc.data().title} - ${change.doc.data().description}</td>
-        //   <td><span class="${change.doc.data().prio}">PRIO</span></td>
-        //   <td>${change.doc.data().assigned_to}</td>
-        //   <td>1 day ago</td>
-        // </tr>
-        // `;
+        let newTRData = createTableRow(change);
 
         parentToReplace.replaceChild(newTRData, oldTRData);
       }
@@ -205,7 +172,7 @@ async function updateBug(assigned_to, closed_at, created_at, description, github
 async function demoAccountSignIn(email, password) {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      console.log(userCredential);
+      // console.log(userCredential);
       // Signed in
       const user = userCredential.user;
       // ...
@@ -217,6 +184,7 @@ async function demoAccountSignIn(email, password) {
 }
 
 let firebaseUtils = {
+  removeClassNameFromNodes: removeClassNameFromNodes,
   signInWithPopup: signInWithPopupMain,
   signOut: signOutMain,
   addDoc: creatingBug,

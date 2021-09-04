@@ -23,5 +23,5 @@ let uid = "6BBYVXknuKi6uNpSgsMf";
 
 import { auth, firebaseUtils, Timestamp } from "./firebase.js";
 
-let snapshotObject = firebaseUtils.onSnapshot();
-console.log(snapshotObject);
+// let snapshotObject = firebaseUtils.onSnapshot();
+// console.log(snapshotObject);
