@@ -39,6 +39,19 @@ window.onclick = function (event) {
     document.querySelector(".modal-show").style.transform = "translateY(-150%)";
     document.querySelector(".modal-space").classList.remove("modal-anim");
   }
+
+  if (!event.target.matches("span.input")) {
+    if (document.querySelector("span.input").innerText.length < 1) {
+      document.querySelector("span.input + label").style.transform = "translateY(0)";
+    }
+  }
+
+  if (!event.target.matches(".title")) {
+    console.log(document.querySelector(".title").value);
+    if (document.querySelector(".title").value.length < 1) {
+      document.querySelector(".form-control input + label").style.transform = "translateY(0)";
+    }
+  }
 };
 
 // login & logout behavior
@@ -131,4 +144,27 @@ let addBug = document.querySelector(".add-bug");
 addBug.addEventListener("click", () => {
   document.querySelector(".modal-show").style.transform = "translateY(0)";
   document.querySelector(".modal-space").classList.add("modal-anim");
+});
+
+// animate text inside
+let title = document.querySelector(".form-control input");
+title.addEventListener("focus", () => {
+  document.querySelector(".form-control input + label").style.transform = "translateY(-40px)";
+});
+
+let desc = document.querySelector("span.input");
+desc.addEventListener("focus", () => {
+  document.querySelector("span.input + label").style.transform = "translateY(-40px)";
+});
+
+let isGithubAPIon = false;
+let optionalGithubSuggestion = document.querySelector(".optional");
+optionalGithubSuggestion.addEventListener("click", () => {
+  if (!isGithubAPIon) {
+    document.querySelector(".github").classList.add("github-space");
+    isGithubAPIon = true;
+  } else {
+    isGithubAPIon = false;
+    document.querySelector(".github").classList.remove("github-space");
+  }
 });

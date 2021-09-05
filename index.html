@@ -94,13 +94,21 @@
 
     <div class="modal-show show">
       <div class="modal-form">
-        <div class="modal-space">THANK YOU FOR POINTING US IN THE RIGHT DIRECTION</div>
-        <form class="form" autocomplete="off">
-          <input type="text" name="title" placeholder="Title" />
-          <input class="input-desc" type="textarea" name="description" placeholder="Description" />
-          <span class="input" role="textbox" contenteditable>Description</span>
-          <input type="text" name="prio" placeholder="Priority" />
-          <button class="btn btn-modal">Submit</button>
+        <div class="modal-space">
+          <div class="github">THANK YOU FOR POINTING US IN THE RIGHT DIRECTION</div>
+        </div>
+
+        <form class="form">
+          <div class="form-control">
+            <input class="title" type="text" required />
+            <label class="title">Title</label>
+          </div>
+          <div class="form-control two">
+            <span class="input" role="textbox" onkeypress="return (this.innerText.length <= 256)" contenteditable></span>
+            <label class="desc">Description</label>
+          </div>
+          <div class="optional"><i>Optional</i> - suggest a GitHub repo to help solve <i class="fas fa-plus ml-5"></i></div>
+          <button class="btn">Submit</button>
         </form>
       </div>
     </div>
