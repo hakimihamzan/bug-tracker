@@ -162,9 +162,11 @@ let optionalGithubSuggestion = document.querySelector(".optional");
 optionalGithubSuggestion.addEventListener("click", () => {
   if (!isGithubAPIon) {
     document.querySelector(".github").classList.add("github-space");
+    document.querySelector(".api").style.opacity = 1;
     isGithubAPIon = true;
   } else {
     isGithubAPIon = false;
     document.querySelector(".github").classList.remove("github-space");
+    document.querySelector(".api").style.opacity = 0;
   }
 });

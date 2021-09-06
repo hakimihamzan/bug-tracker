@@ -448,6 +448,7 @@ tr:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .modal-anim {
@@ -522,7 +523,7 @@ span.input:focus {
 }
 
 .github-space {
-  transition: 1s;
+  transition: 0.5s;
 
   transform: translateX(-300%);
 }
@@ -545,6 +546,16 @@ span.input:focus {
   align-items: center;
   padding: 5rem;
   visibility: hidden;
+}
+
+.api {
+  position: absolute;
+  color: white;
+  width: 90%;
+  height: 90%;
+  background-color: transparent;
+  opacity: 0;
+  transition: 0.3s;
 }
 
 @media (max-width: 1100px) {
