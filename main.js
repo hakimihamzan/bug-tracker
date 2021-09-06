@@ -47,7 +47,6 @@ window.onclick = function (event) {
   }
 
   if (!event.target.matches(".title")) {
-    console.log(document.querySelector(".title").value);
     if (document.querySelector(".title").value.length < 1) {
       document.querySelector(".form-control input + label").style.transform = "translateY(0)";
     }
@@ -62,10 +61,14 @@ let userGreetings = document.querySelector(".user-greet");
 
 isUserLoggedIn();
 
+// saving user object
+let user;
+
 //changing the dom based on state of user's login, checking if already existing users
 function isUserLoggedIn() {
   onAuthStateChanged(auth, (user) => {
     if (user != null) {
+      user = user;
       document.getElementById("app").style.transform = "translateY(1rem)";
       document.querySelector(".add-bug").style.transform = "translateY(-40px)";
       document.querySelector(".add-bug").style.opacity = "100";
@@ -162,11 +165,37 @@ let optionalGithubSuggestion = document.querySelector(".optional");
 optionalGithubSuggestion.addEventListener("click", () => {
   if (!isGithubAPIon) {
     document.querySelector(".github").classList.add("github-space");
-    document.querySelector(".api").style.opacity = 1;
+    document.querySelector(".api").style.transform = "translateY(0)";
     isGithubAPIon = true;
   } else {
     isGithubAPIon = false;
     document.querySelector(".github").classList.remove("github-space");
-    document.querySelector(".api").style.opacity = 0;
+    document.querySelector(".api").style.transform = "translateY(-500%)";
   }
+});
+
+document.querySelector(".close-icon").addEventListener("click", () => {
+  isGithubAPIon = false;
+  document.querySelector(".github").classList.remove("github-space");
+  document.querySelector(".api").style.transform = "translateY(-500%)";
+});
+
+let submitBugButton = document.querySelector(".submit-bug-btn");
+submitBugButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  let title = document.querySelector("input.title").value;
+  let desc = document.querySelector("span.input").innerText;
+
+  let username;
+  onAuthStateChanged(auth, (user) => {
+    username = user.displayName != null ? user.displayName : user.email;
+    console.log(username);
+    firebaseUtils.addDoc("", "", Timestamp.now(), desc, "", username, title, "high", "submitted");
+    document.querySelector("input.title").value = "";
+    document.querySelector("span.input").innerText = "";
+  });
+
+  // eventually remove modal
+  document.querySelector(".modal-show").style.transform = "translateY(-150%)";
+  document.querySelector(".modal-space").classList.remove("modal-anim");
 });

@@ -58,7 +58,7 @@ function signOutMain() {
 
 const bugsCollection = collection(db, "bugs");
 
-async function creatingBug(assigned_to, closed_at, created_at, description, github_repo, submitter, title) {
+async function creatingBug(assigned_to, closed_at, created_at, description, github_repo, submitter, title, prio, status) {
   try {
     const docRef = await addDoc(bugsCollection, {
       assigned_to: assigned_to,
@@ -68,6 +68,8 @@ async function creatingBug(assigned_to, closed_at, created_at, description, gith
       github_repo: github_repo,
       submitter: submitter,
       title: title,
+      prio: prio,
+      status: status,
       bugs: "bugs",
     });
 
@@ -112,12 +114,12 @@ function createTableRow(snapshotChange) {
   newTRData.setAttribute("data-id", snapshotChange.doc.id);
 
   newTRData.innerHTML = `
-      <td>2</td>
+      <td>#</td>
       <td>${snapshotChange.doc.data().submitter}</td>
       <td><span class="${snapshotChange.doc.data().status}">${bugStatus}</span> ${snapshotChange.doc.data().title} - ${snapshotChange.doc.data().description}</td>
       <td><span class="${snapshotChange.doc.data().prio}">${prio}</span></td>
       <td>${snapshotChange.doc.data().assigned_to}</td>
-      <td>1 day ago</td>
+      <td>Bug Tracker</td>
   `;
   return newTRData;
 }

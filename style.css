@@ -402,7 +402,7 @@ tr:hover {
 
 .modal-show {
   transition: transform 0.8s;
-  transform: translateY(-150%);
+  transform: translateY(-500%);
   position: absolute;
   top: 0;
   left: 0;
@@ -552,10 +552,67 @@ span.input:focus {
   position: absolute;
   color: white;
   width: 90%;
-  height: 90%;
+  height: 95%;
   background-color: transparent;
-  opacity: 0;
-  transition: 0.3s;
+  transform: translateY(-500%);
+
+  /* opacity: 0; */
+  transition: 0.5s;
+  /* transition-delay: 0.3s; */
+  text-align: center;
+}
+
+.search-api input {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.116);
+  border-radius: 5px;
+  color: white;
+  border-width: 0;
+}
+
+.search-api input:focus {
+  outline: thin;
+}
+
+.search-api input::placeholder {
+  color: rgba(255, 255, 255, 0.425);
+}
+
+.search-result {
+  font-size: 1.2rem;
+  margin: 10px;
+}
+
+.close-icon {
+  color: #ffffff77;
+  font-size: 1rem;
+  cursor: pointer;
+  position: absolute;
+  top: -7px;
+  left: -10px;
+}
+
+.result {
+  font-size: 1rem;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.2;
+  padding: 5px 0;
+  margin: 10px 0;
+}
+
+.add-github {
+  cursor: pointer;
+}
+
+.search-icon {
+  background-color: transparent;
+  border-width: 0;
+  cursor: pointer;
 }
 
 @media (max-width: 1100px) {
