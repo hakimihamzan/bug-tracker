@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
 import { GoogleAuthProvider, getAuth, signOut, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
-import { collection, doc, Timestamp, onSnapshot, deleteDoc, getDocs, getFirestore, addDoc, updateDoc, query, where } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+import { collection, doc, Timestamp, onSnapshot, deleteDoc, getDocs, getDoc, getFirestore, addDoc, updateDoc, query, where } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -58,6 +58,19 @@ function signOutMain() {
 
 const bugsCollection = collection(db, "bugs");
 
+async function readDoc(uid) {
+  const docRef = doc(db, "bugs", uid);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    console.log("Document data:", docSnap.data());
+    document.querySelector(".more-info").innerHTML = docSnap.data().submitter;
+  } else {
+    // doc.data() will be undefined in this case
+    console.log("No such document!");
+  }
+}
+
 async function creatingBug(assigned_to, closed_at, created_at, description, github_repo, submitter, title, prio, status) {
   try {
     const docRef = await addDoc(bugsCollection, {
@@ -107,6 +120,8 @@ function createTableRow(snapshotChange) {
     prio = "Medium";
   } else if (snapshotChange.doc.data().prio == "low") {
     prio = "Low";
+  } else if (snapshotChange.doc.data().prio == "closed") {
+    prio = "Closed";
   }
 
   let newTRData = document.createElement("tr");
@@ -116,11 +131,14 @@ function createTableRow(snapshotChange) {
   newTRData.innerHTML = `
       <td>#</td>
       <td>${snapshotChange.doc.data().submitter}</td>
-      <td><span class="${snapshotChange.doc.data().status}">${bugStatus}</span> ${snapshotChange.doc.data().title} - ${snapshotChange.doc.data().description}</td>
+      <td><span class="${snapshotChange.doc.data().status}">${bugStatus}</span> <span data-id="${snapshotChange.doc.id}"class="a-tag">${snapshotChange.doc.data().title}</span> - ${snapshotChange.doc.data().description}</td>
       <td><span class="${snapshotChange.doc.data().prio}">${prio}</span></td>
       <td>${snapshotChange.doc.data().assigned_to}</td>
       <td>Bug Tracker</td>
   `;
+
+  let data = snapshotChange.doc.data();
+  let dateCreated = data.created_at.toDate(); //will turn the timestamp firebase into date
   return newTRData;
 }
 
@@ -147,6 +165,7 @@ function snapShotListen() {
         let parentToReplace = oldTRData.parentElement;
 
         let newTRData = createTableRow(change);
+        // debugger;
 
         parentToReplace.replaceChild(newTRData, oldTRData);
       }
@@ -157,6 +176,13 @@ function snapShotListen() {
         removeClassNameFromNodes(allTD, "td-anim");
         document.querySelector("table.data").removeChild(tr);
       }
+    });
+    let allATag = document.querySelectorAll("span.a-tag");
+
+    allATag.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        location.href = location.origin + location.pathname + "#" + e.target.dataset.id;
+      });
     });
   });
 }
@@ -198,6 +224,7 @@ let firebaseUtils = {
   onSnapshot: snapShotListen,
   updateDoc: updateBug,
   signInWithEmailAndPassword: demoAccountSignIn,
+  getDoc: readDoc,
 };
 
 export { firebaseUtils, auth, Timestamp };

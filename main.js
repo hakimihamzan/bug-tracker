@@ -37,6 +37,7 @@ window.onclick = function (event) {
   // handling modal clicked outside during add a bug
   if (event.target.matches(".modal-show")) {
     document.querySelector(".modal-show").style.transform = "translateY(-150%)";
+    document.body.style.overflowY = "scroll";
     document.querySelector(".modal-space").classList.remove("modal-anim");
   }
 
@@ -50,6 +51,11 @@ window.onclick = function (event) {
     if (document.querySelector(".title").value.length < 1) {
       document.querySelector(".form-control input + label").style.transform = "translateY(0)";
     }
+  }
+
+  if (event.target.matches(".modal-more-info")) {
+    // document.querySelector(".modal-more-info").style.transform = "scale(0)";
+    location.href = location.origin + location.pathname;
   }
 };
 
@@ -146,6 +152,7 @@ let addBug = document.querySelector(".add-bug");
 
 addBug.addEventListener("click", () => {
   document.querySelector(".modal-show").style.transform = "translateY(0)";
+  document.body.style.overflowY = "hidden";
   document.querySelector(".modal-space").classList.add("modal-anim");
 });
 
@@ -198,4 +205,13 @@ submitBugButton.addEventListener("click", (e) => {
   // eventually remove modal
   document.querySelector(".modal-show").style.transform = "translateY(-150%)";
   document.querySelector(".modal-space").classList.remove("modal-anim");
+});
+
+window.addEventListener("popstate", () => {
+  let currentPath = location.hash.substr(1);
+  // console.log(currentPath);
+  document.querySelector(".modal-more-info").style.transform = "scale(1)";
+  document.querySelector(".more-info").setAttribute("data-id", currentPath);
+
+  firebaseUtils.getDoc(currentPath);
 });

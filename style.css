@@ -312,6 +312,13 @@ body {
   font-size: smaller;
   border-radius: 5px;
 }
+.closed {
+  background-color: #dbdbdb;
+  color: rgb(29, 29, 29);
+  padding: 5px;
+  font-size: smaller;
+  border-radius: 5px;
+}
 
 @keyframes mytable {
   0% {
@@ -634,4 +641,33 @@ span.input:focus {
     visibility: visible;
     font-size: 9rem;
   }
+}
+
+.modal-more-info {
+  /* initially u cant see , but when click it transform  */
+  transform: scale(0);
+  background-color: rgba(85, 85, 85, 0.658);
+  width: 100vw;
+  height: 100vh;
+  /* visibility: hidden; */
+  z-index: 150;
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.more-info {
+  background-color: #fadb43;
+  height: 90%;
+  width: 90%;
+}
+
+.a-tag {
+  text-decoration: underline;
+  cursor: pointer;
+  color: blue;
+  text-decoration-color: blue;
 }
