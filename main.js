@@ -37,7 +37,7 @@ window.onclick = function (event) {
   // handling modal clicked outside during add a bug
   if (event.target.matches(".modal-show")) {
     document.querySelector(".modal-show").style.transform = "translateY(-150%)";
-    document.body.style.overflowY = "scroll";
+    // document.body.style.overflowY = "scroll";
     document.querySelector(".modal-space").classList.remove("modal-anim");
   }
 
@@ -55,6 +55,7 @@ window.onclick = function (event) {
 
   if (event.target.matches(".modal-more-info")) {
     // document.querySelector(".modal-more-info").style.transform = "scale(0)";
+    document.querySelector(".modal-more-info").style.transform = "translateX(400%)";
     location.href = location.origin + location.pathname;
   }
 };
@@ -151,8 +152,13 @@ document.querySelector(".manager").addEventListener("click", () => {
 let addBug = document.querySelector(".add-bug");
 
 addBug.addEventListener("click", () => {
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
   document.querySelector(".modal-show").style.transform = "translateY(0)";
-  document.body.style.overflowY = "hidden";
+  document.querySelector(".modal-show").style.position = "fixed";
   document.querySelector(".modal-space").classList.add("modal-anim");
 });
 
@@ -197,7 +203,7 @@ submitBugButton.addEventListener("click", (e) => {
   onAuthStateChanged(auth, (user) => {
     username = user.displayName != null ? user.displayName : user.email;
     console.log(username);
-    firebaseUtils.addDoc("", "", Timestamp.now(), desc, "", username, title, "high", "submitted");
+    firebaseUtils.addDoc("unassigned", "", Timestamp.now(), desc, "", username, title, "high", "submitted");
     document.querySelector("input.title").value = "";
     document.querySelector("span.input").innerText = "";
   });
@@ -209,9 +215,11 @@ submitBugButton.addEventListener("click", (e) => {
 
 window.addEventListener("popstate", () => {
   let currentPath = location.hash.substr(1);
-  // console.log(currentPath);
-  document.querySelector(".modal-more-info").style.transform = "scale(1)";
+  document.querySelector(".modal-more-info").style.transform = "translateX(0)";
+  document.querySelector(".modal-more-info").style.position = "fixed";
+  document.querySelector(".modal-more-info").style.overflowY = "scroll";
   document.querySelector(".more-info").setAttribute("data-id", currentPath);
+  document.body.style.overflowY = "hidden";
 
   firebaseUtils.getDoc(currentPath);
 });

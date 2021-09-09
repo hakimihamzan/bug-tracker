@@ -64,7 +64,7 @@ async function readDoc(uid) {
 
   if (docSnap.exists()) {
     console.log("Document data:", docSnap.data());
-    document.querySelector(".more-info").innerHTML = docSnap.data().submitter;
+    // document.querySelector(".more-info").innerHTML = docSnap.data().submitter;
   } else {
     // doc.data() will be undefined in this case
     console.log("No such document!");
@@ -105,6 +105,8 @@ function removeClassNameFromNodes(allItems, classNameToRemove) {
 function createTableRow(snapshotChange) {
   let bugStatus;
   let prio;
+  let assigned_to = snapshotChange.doc.data().assigned_to;
+
   if (snapshotChange.doc.data().status == "pending") {
     bugStatus = "PENDING";
   } else if (snapshotChange.doc.data().status == "submitted") {
@@ -129,11 +131,10 @@ function createTableRow(snapshotChange) {
   newTRData.setAttribute("data-id", snapshotChange.doc.id);
 
   newTRData.innerHTML = `
-      <td>#</td>
       <td>${snapshotChange.doc.data().submitter}</td>
       <td><span class="${snapshotChange.doc.data().status}">${bugStatus}</span> <span data-id="${snapshotChange.doc.id}"class="a-tag">${snapshotChange.doc.data().title}</span> - ${snapshotChange.doc.data().description}</td>
       <td><span class="${snapshotChange.doc.data().prio}">${prio}</span></td>
-      <td>${snapshotChange.doc.data().assigned_to}</td>
+      <td> <span class="${assigned_to}">${assigned_to}</span></td>
       <td>Bug Tracker</td>
   `;
 

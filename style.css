@@ -24,14 +24,10 @@
 }
 
 body {
-  /* box-sizing: border-box; */
-  /* height: max-content; */
-  /* margin-bottom: 50%; */
   overflow-x: hidden;
   overflow-y: scroll;
   font-family: "Roboto", sans-serif;
   max-width: 1920;
-  /* font-size: 1rem; */
 }
 
 .nav-container {
@@ -320,6 +316,16 @@ body {
   border-radius: 5px;
 }
 
+.unassigned {
+  background-color: rgb(223, 89, 0);
+  color: white;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: small;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
 @keyframes mytable {
   0% {
     transform: translateY(0);
@@ -531,7 +537,6 @@ span.input:focus {
 
 .github-space {
   transition: 0.5s;
-
   transform: translateX(-300%);
 }
 
@@ -562,10 +567,7 @@ span.input:focus {
   height: 95%;
   background-color: transparent;
   transform: translateY(-500%);
-
-  /* opacity: 0; */
   transition: 0.5s;
-  /* transition-delay: 0.3s; */
   text-align: center;
 }
 
@@ -645,8 +647,12 @@ span.input:focus {
 
 .modal-more-info {
   /* initially u cant see , but when click it transform  */
-  transform: scale(0);
-  background-color: rgba(85, 85, 85, 0.658);
+  /* transform: scale(0); */
+  transform: translateX(400%);
+  background: #283048; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #859398, #283048); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #859398, #283048); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
   width: 100vw;
   height: 100vh;
   /* visibility: hidden; */
@@ -654,15 +660,63 @@ span.input:focus {
   position: absolute;
   top: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   transition: 0.2s;
 }
 
+.title {
+  grid-area: title;
+}
+.description {
+  grid-area: description;
+}
+.submitter {
+  grid-area: submitter;
+}
+.assigned {
+  grid-area: assigned;
+}
+
+.created-at {
+  grid-area: created-at;
+}
+.prio {
+  grid-area: prio;
+}
+.status {
+  grid-area: status;
+}
+.project {
+  grid-area: project;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ticket-id {
+  grid-area: ticket-id;
+}
 .more-info {
-  background-color: #fadb43;
-  height: 90%;
-  width: 90%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background: #ece9e6; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ffffff, #ece9e6); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ffffff, #ece9e6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  padding: 20px;
+  height: 80%;
+  width: 80%;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  position: relative;
+
+  display: grid;
+  grid-template-areas:
+    "title title title title"
+    "description description description description"
+    "submitter created-at assigned prio"
+    "status project project ticket-id";
+  grid-gap: 20px;
 }
 
 .a-tag {
@@ -670,4 +724,52 @@ span.input:focus {
   cursor: pointer;
   color: blue;
   text-decoration-color: blue;
+}
+
+.update-delete-btn {
+  align-self: flex-end;
+  display: flex;
+  margin-top: 5px;
+  margin-right: 10%;
+}
+
+.update-delete-btn button {
+  font-style: inherit;
+  padding: 10px 20px;
+  border-width: 0;
+  cursor: pointer;
+  background: #ece9e6;
+}
+.update-delete-btn button:hover {
+  border-width: 0;
+  border-style: none;
+  background: #283048; /* fallback for old browsers */
+  color: white;
+}
+
+.update-delete-btn .update {
+  border-bottom-left-radius: 10px;
+}
+
+.update-delete-btn .delete {
+  border-bottom-right-radius: 10px;
+}
+
+.outer {
+  background: white;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.title,
+.description {
+  font-size: 1rem;
+}
+
+.title-value,
+.description-value,
+.submitter-value {
+  font-size: 1.5rem;
 }
