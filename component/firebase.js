@@ -17,9 +17,12 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 const db = getFirestore(app);
+const bugsCollection = collection(db, "bugs");
 
 // first thing first -- allow google sign-in in authentication firebase
 const provider = new GoogleAuthProvider();
+
+snapShotListen();
 
 function signInWithPopupMain() {
   signInWithPopup(auth, provider)
@@ -55,8 +58,6 @@ function signOutMain() {
 }
 
 // --------------------------------------------------
-
-const bugsCollection = collection(db, "bugs");
 
 async function readDoc(uid) {
   const docRef = doc(db, "bugs", uid);

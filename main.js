@@ -2,7 +2,7 @@ import { auth, firebaseUtils, Timestamp } from "./component/firebase.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
 
 //call for initial data
-firebaseUtils.onSnapshot();
+// firebaseUtils.onSnapshot();
 
 // sidebar nav buttons behavior
 let allSideButton = document.querySelectorAll(".side-btn");
