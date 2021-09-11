@@ -1,8 +1,9 @@
-import { auth, firebaseUtils, Timestamp } from "./component/firebase.js";
+import { auth, firebaseUtils, Timestamp, db } from "./component/firebase.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
 
-//call for initial data
-// firebaseUtils.onSnapshot();
+//check loggedin users
+isUserLoggedIn();
 
 // sidebar nav buttons behavior
 let allSideButton = document.querySelectorAll(".side-btn");
@@ -66,16 +67,10 @@ let logout = document.querySelector(".logout");
 let loginInfo = document.querySelector(".login-info");
 let userGreetings = document.querySelector(".user-greet");
 
-isUserLoggedIn();
-
-// saving user object
-let user;
-
 //changing the dom based on state of user's login, checking if already existing users
 function isUserLoggedIn() {
   onAuthStateChanged(auth, (user) => {
     if (user != null) {
-      user = user;
       document.getElementById("app").style.transform = "translateY(1rem)";
       document.querySelector(".add-bug").style.transform = "translateY(-40px)";
       document.querySelector(".add-bug").style.opacity = "100";
@@ -220,6 +215,37 @@ window.addEventListener("popstate", () => {
   document.querySelector(".modal-more-info").style.overflowY = "scroll";
   document.querySelector(".more-info").setAttribute("data-id", currentPath);
   document.body.style.overflowY = "hidden";
-
   firebaseUtils.getDoc(currentPath);
+});
+
+// only for managerDemo account/ devDemo cant update this field. signifies a deletion
+async function deleteThings(uid) {
+  const tempRef = doc(db, "bugs", uid);
+  await updateDoc(tempRef, {
+    deleteBug: true,
+  });
+}
+
+async function updateThings(uid) {
+  const tempRef = doc(db, "bugs", uid);
+  await updateDoc(tempRef, {
+    assigned_to: "test",
+    deleteBug: null,
+  });
+}
+
+let deleteBugButton = document.querySelector("button.delete");
+deleteBugButton.addEventListener("click", function (e) {
+  e.preventDefault();
+  let uid = document.querySelector(".more-info").getAttribute("data-id");
+  // firebaseUtils.deleteDoc(uid);
+  deleteThings(uid);
+});
+
+let updateBugButton = document.querySelector("button.update");
+updateBugButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  let uid = document.querySelector(".more-info").getAttribute("data-id");
+  updateThings(uid);
+  console.log("update clicked");
 });

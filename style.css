@@ -390,8 +390,15 @@ tr:hover {
   padding: 0.8rem;
   border-radius: 5px;
   border: 1px solid white;
-  transition: opacity 1s, transform 1s;
+  /* transition: opacity 1s, transform 1s; */
   cursor: pointer;
+}
+
+.notransition {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
 }
 
 .add-bug:hover {
@@ -690,9 +697,14 @@ span.input:focus {
 }
 .project {
   grid-area: project;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+}
+
+.project img {
+  width: 50%;
+  height: 50%;
 }
 .ticket-id {
   grid-area: ticket-id;
@@ -716,7 +728,8 @@ span.input:focus {
     "description description description description"
     "submitter created-at assigned prio"
     "status project project ticket-id";
-  grid-gap: 20px;
+  grid-gap: 10px;
+  align-items: start;
 }
 
 .a-tag {
@@ -758,18 +771,12 @@ span.input:focus {
 .outer {
   background: white;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-
   padding: 10px;
   border-radius: 5px;
 }
 
-.title,
-.description {
-  font-size: 1rem;
-}
-
-.title-value,
-.description-value,
-.submitter-value {
-  font-size: 1.5rem;
+.deleted-row,
+.deleted-row:hover {
+  text-decoration: line-through;
+  background-color: #80808091;
 }

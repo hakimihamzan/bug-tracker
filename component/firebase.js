@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
-import { GoogleAuthProvider, getAuth, signOut, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+import { onAuthStateChanged, GoogleAuthProvider, getAuth, signOut, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
 import { collection, doc, Timestamp, onSnapshot, deleteDoc, getDocs, getDoc, getFirestore, addDoc, updateDoc, query, where } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
 
 // Your web app's Firebase configuration
@@ -64,8 +64,45 @@ async function readDoc(uid) {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
-    // document.querySelector(".more-info").innerHTML = docSnap.data().submitter;
+    let data = docSnap.data();
+    document.querySelector(".more-info").innerHTML = `    
+      <div class="outer title">
+        <label>Title</label>
+        <div class="title-value">${data.title}</div>
+      </div>
+      <div class="outer description">
+        <label>Description</label>
+        <div class="description-value">${data.description}</div>
+      </div>
+      <div class="outer submitter">
+        <label>Submitter</label>
+        <div class="submitter-value">${data.submitter}</div>
+      </div>
+      <div class="outer assigned">
+        <label>Assigned to</label>
+        <div class="">${data.assigned_to}</div>
+      </div>
+      <div class="outer created-at">
+        <label>Created at</label>
+        <div class="">${data.created_at.toDate()}</div>
+      </div>
+      <div class="outer prio">
+        <label>Priority</label>
+        <div class="">${data.prio}</div>
+      </div>
+      <div class="outer status">
+        <label>Status</label>
+        <div class="">${data.status}</div>
+      </div>
+      <div class="outer project">
+        <label>Project</label>
+        <img id="" src="img/logo.svg" alt="bug tracker logo" />
+      </div>
+      <div class="outer ticket-id">
+        <label>Ticket ID</label>
+        <div class="">${uid}</div>
+      </div>
+  `;
   } else {
     // doc.data() will be undefined in this case
     console.log("No such document!");
@@ -141,6 +178,10 @@ function createTableRow(snapshotChange) {
 
   let data = snapshotChange.doc.data();
   let dateCreated = data.created_at.toDate(); //will turn the timestamp firebase into date
+
+  if (snapshotChange.doc.data().deleteBug) {
+    newTRData.classList.add("deleted-row");
+  }
   return newTRData;
 }
 
@@ -156,8 +197,6 @@ function snapShotListen() {
         document.querySelector("table.data").appendChild(newTRData);
       }
       if (change.type === "modified") {
-        // console.log("Modified something: ", change.doc.data(), change.doc.id);
-
         // animation purpose
         let allTD = document.querySelectorAll(".td-anim");
         removeClassNameFromNodes(allTD, "td-anim");
@@ -229,4 +268,4 @@ let firebaseUtils = {
   getDoc: readDoc,
 };
 
-export { firebaseUtils, auth, Timestamp };
+export { firebaseUtils, auth, Timestamp, db };
