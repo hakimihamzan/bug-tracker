@@ -34,6 +34,7 @@ function signInWithPopupMain() {
       // The signed-in user info.
       const user = result.user;
       // console.log(user);
+      location.reload();
       // ...
     })
     .catch((error) => {
@@ -51,6 +52,7 @@ function signOutMain() {
   signOut(auth)
     .then(() => {
       // Sign-out successful.
+      location.reload();
     })
     .catch((error) => {
       // An error happened.
@@ -165,7 +167,7 @@ function createTableRow(snapshotChange) {
   }
 
   let newTRData = document.createElement("tr");
-  newTRData.classList.add("td-anim");
+  // newTRData.classList.add("td-anim");
   newTRData.setAttribute("data-id", snapshotChange.doc.id);
 
   newTRData.innerHTML = `
@@ -206,6 +208,8 @@ function snapShotListen() {
         let parentToReplace = oldTRData.parentElement;
 
         let newTRData = createTableRow(change);
+        newTRData.classList.add("td-anim");
+
         // debugger;
 
         parentToReplace.replaceChild(newTRData, oldTRData);
@@ -248,6 +252,8 @@ async function demoAccountSignIn(email, password) {
       // console.log(userCredential);
       // Signed in
       const user = userCredential.user;
+      location.reload();
+
       // ...
     })
     .catch((error) => {

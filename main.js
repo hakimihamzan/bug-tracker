@@ -68,12 +68,13 @@ let loginInfo = document.querySelector(".login-info");
 let userGreetings = document.querySelector(".user-greet");
 
 //changing the dom based on state of user's login, checking if already existing users
+
 function isUserLoggedIn() {
   onAuthStateChanged(auth, (user) => {
     if (user != null) {
       document.getElementById("app").style.transform = "translateY(1rem)";
       document.querySelector(".add-bug").style.transform = "translateY(-40px)";
-      document.querySelector(".add-bug").style.opacity = "100";
+      // document.querySelector(".add-bug").style.opacity = "100";
       document.querySelector(".add-bug").style.visibility = "visible";
       demoButton.style.visibility = "hidden";
       if (user.displayName != null) {
@@ -85,15 +86,19 @@ function isUserLoggedIn() {
         userGreetings.innerHTML = `Hello, ${user.email}`;
         changeLogInOutBtnVisibility(login, loginInfo, logout, true);
       }
+      document.querySelector("button.delete").enabled = "true";
+      document.querySelector("button.update").enabled = "true";
     } else {
-      document.querySelector(".add-bug").style.transform = "translateY(10px)";
-      document.querySelector(".add-bug").style.opacity = "0";
-      document.querySelector(".add-bug").style.visibility = "hidden";
       document.getElementById("app").style.transform = "translateY(0)";
+      document.querySelector(".add-bug").style.transform = "translateY(10px)";
+      // document.querySelector(".add-bug").style.opacity = "0";
+      document.querySelector(".add-bug").style.visibility = "hidden";
       console.log("no user loggedin");
       userGreetings.innerHTML = "";
       demoButton.style.visibility = "visible";
       changeLogInOutBtnVisibility(login, loginInfo, logout, false);
+      document.querySelector("button.delete").disabled = "true";
+      document.querySelector("button.update").disabled = "true";
     }
   });
 }
@@ -114,14 +119,13 @@ login.addEventListener("click", () => {
   // google pop up with token
   firebaseUtils.signInWithPopup();
   // change the dom after login
-  isUserLoggedIn();
 });
 
+// remove signed in token
 logout.addEventListener("click", () => {
-  // remove signed in token
   firebaseUtils.signOut();
   // change the dom after logout
-  isUserLoggedIn();
+  // isUserLoggedIn();
 });
 
 // --------------
@@ -226,6 +230,10 @@ async function deleteThings(uid) {
   });
 }
 
+// only enable deleteButton when 2 people loggedin (admin, managerDemo)
+// disable both update and deletebuttons when no user logged in
+// devDemo can only update status
+// managerDemo can update Status, assign to people & update priority
 async function updateThings(uid) {
   const tempRef = doc(db, "bugs", uid);
   await updateDoc(tempRef, {
@@ -238,7 +246,6 @@ let deleteBugButton = document.querySelector("button.delete");
 deleteBugButton.addEventListener("click", function (e) {
   e.preventDefault();
   let uid = document.querySelector(".more-info").getAttribute("data-id");
-  // firebaseUtils.deleteDoc(uid);
   deleteThings(uid);
 });
 
@@ -247,5 +254,4 @@ updateBugButton.addEventListener("click", (e) => {
   e.preventDefault();
   let uid = document.querySelector(".more-info").getAttribute("data-id");
   updateThings(uid);
-  console.log("update clicked");
 });
