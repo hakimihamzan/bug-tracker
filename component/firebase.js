@@ -61,12 +61,58 @@ function signOutMain() {
 
 // --------------------------------------------------
 
+let developersList = ["tilak", "zeeshan", "boss", "boss2", "dev", "goku", "unassigned"];
+let statusList = ["completed", "pending", "proceeding", "submitted"];
+let prioList = ["high", "medium", "low", "closed"];
+
+function creatingSelectOptionsForAssign(list, data) {
+  let assignedValue = data.assigned_to.toLowerCase();
+  list.push(assignedValue);
+  let newList = [...new Set(list)];
+  let returnedList = newList.map((i) => {
+    if (i == assignedValue) {
+      return `<option selected value="${i}">${capitalizeFirstLetter(i)}</option>`;
+    } else {
+      return `<option value="${i}">${capitalizeFirstLetter(i)}</option>`;
+    }
+  });
+  return returnedList.join(" ");
+}
+
+function creatingSelectOptionsForStatus(list, data) {
+  let assignedValue = data.status.toLowerCase();
+  list.push(assignedValue);
+  let newList = [...new Set(list)];
+  let returnedList = newList.map((i) => {
+    if (i == assignedValue) {
+      return `<option selected value="${i}">${i.toUpperCase()}</option>`;
+    } else {
+      return `<option value="${i}">${i.toUpperCase()}</option>`;
+    }
+  });
+  return returnedList.join(" ");
+}
+
+// <option selected value="${data.assigned_to}">${data.assigned_to}</option>
+// <option value="tilak">Tilak</option>
+// <option value="boss">boss</option>
+// <option value="boss2">boss2</option>
+// <option value="dev">dev</option>
+// <option value="goku">goku</option>
+// <option value="unassigned">Unassigned</option>
+
+// <option selected value="${data.status.toUpperCase()}">${data.status.toUpperCase()}</option>
+// <option value="completed">COMPLETED</option>
+// <option value="pending">PENDING</option>
+// <option value="inprogress">IN PROGRESS</option>
+
 async function readDoc(uid) {
   const docRef = doc(db, "bugs", uid);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
     let data = docSnap.data();
+
     document.querySelector(".more-info").innerHTML = `
       <div class="outer submitter">
         <label class="submitter-label">Submitter</label>
@@ -74,7 +120,11 @@ async function readDoc(uid) {
       </div>
       <div class="outer assigned">
         <label>Assigned to</label>
-       <div class="assigned-value">${data.assigned_to}</div>
+       <div class="assigned-value">
+        <select class="form-select assigned-value" aria-label="Default select example">
+          ${creatingSelectOptionsForAssign(developersList, data)}
+        </select>
+      </div>
       </div>
       <div class="outer created-at">
         <div class="created-at-inner">
@@ -98,7 +148,9 @@ async function readDoc(uid) {
       <div class="bottom-row-more-info">
         <div class="outer status">
           <label>Status</label>
-          <div class="${data.status}">${data.status.toUpperCase()}</div>
+          <select class="form-select ${data.status}" aria-label="Default select example">
+          ${creatingSelectOptionsForStatus(statusList, data)}
+          </select>
         </div>
         <div class="outer prio">
           <label>Priority</label>
