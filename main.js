@@ -119,13 +119,14 @@ login.addEventListener("click", () => {
   // google pop up with token
   firebaseUtils.signInWithPopup();
   // change the dom after login
+  isUserLoggedIn();
 });
 
 // remove signed in token
 logout.addEventListener("click", () => {
   firebaseUtils.signOut();
   // change the dom after logout
-  // isUserLoggedIn();
+  isUserLoggedIn();
 });
 
 // --------------
@@ -246,12 +247,12 @@ let deleteBugButton = document.querySelector("button.delete");
 deleteBugButton.addEventListener("click", function (e) {
   e.preventDefault();
   let uid = document.querySelector(".more-info").getAttribute("data-id");
-  deleteThings(uid);
+  // deleteThings(uid);
 });
 
 let updateBugButton = document.querySelector("button.update");
 updateBugButton.addEventListener("click", (e) => {
   e.preventDefault();
   let uid = document.querySelector(".more-info").getAttribute("data-id");
-  updateThings(uid);
+  // updateThings(uid);
 });

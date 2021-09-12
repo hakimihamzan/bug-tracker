@@ -249,7 +249,7 @@ body {
   height: auto;
   width: 100vw;
   position: absolute;
-  transition: all 1s;
+  transition: all 0.2s;
   padding-bottom: 5rem;
   margin-bottom: 5rem;
 }
@@ -681,41 +681,114 @@ span.input:focus {
 }
 .submitter {
   grid-area: submitter;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .assigned {
   grid-area: assigned;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .created-at {
   grid-area: created-at;
-}
-.prio {
-  grid-area: prio;
-}
-.status {
-  grid-area: status;
-}
-.project {
-  grid-area: project;
-  /* display: flex;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center; */
+  align-items: center;
+  padding: 0;
+}
+
+.outer.created-at {
+  padding: 0;
+}
+.created-at-inner {
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom-row-more-info {
+  grid-area: bottom-row-more-info;
+  display: flex;
+}
+.prio,
+.status,
+.ticket-id {
+  background: #dcdfe0; /* fallback for old browsers */
+  width: 140px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.prio > label,
+.status > label,
+.ticket-id > label {
+  margin: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.ticket-id {
+  width: 190px;
+}
+
+.project {
+  /* max-width: 400px */
+  grid-area: project;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #313a46;
+}
+
+.project.outer {
+  padding: 10px;
 }
 
 .project img {
-  width: 50%;
-  height: 50%;
+  width: 95%;
 }
-.ticket-id {
-  grid-area: ticket-id;
+.submitter > label,
+.assigned > label,
+.created-at-inner > label,
+.title > label,
+.description > label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
+.title-value,
+.description-value {
+  font-size: 1.2rem;
+  text-align: justify;
+  margin-top: 5px;
+  color: #000000;
+}
+
+.submitter-value,
+.assigned-value {
+  font-size: 2rem;
 }
 .more-info {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   border-bottom-left-radius: 10px;
-  background: #ece9e6; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #ffffff, #ece9e6); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #ffffff, #ece9e6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #ece9e6;
+  background: -webkit-linear-gradient(to right, #ffffff, #ece9e6);
+  background: linear-gradient(to right, #ffffff, #ece9e6);
   padding: 20px;
   height: 80%;
   width: 80%;
@@ -724,12 +797,13 @@ span.input:focus {
 
   display: grid;
   grid-template-areas:
+    "submitter assigned created-at project"
     "title title title title"
     "description description description description"
-    "submitter created-at assigned prio"
-    "status project project ticket-id";
+    "bottom-row-more-info bottom-row-more-info bottom-row-more-info bottom-row-more-info";
   grid-gap: 10px;
-  align-items: start;
+  /* justify-content: space-evenly; */
+  color: #424a55;
 }
 
 .a-tag {
@@ -748,6 +822,7 @@ span.input:focus {
 
 .update-delete-btn button {
   font-style: inherit;
+  font-weight: 750;
   padding: 10px 20px;
   border-width: 0;
   cursor: pointer;
@@ -769,9 +844,9 @@ span.input:focus {
 }
 
 .outer {
-  background: white;
+  /* background: white; */
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-  padding: 10px;
+  padding: 15px;
   border-radius: 5px;
 }
 

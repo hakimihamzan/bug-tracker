@@ -67,44 +67,49 @@ async function readDoc(uid) {
 
   if (docSnap.exists()) {
     let data = docSnap.data();
-    document.querySelector(".more-info").innerHTML = `    
-      <div class="outer title">
-        <label>Title</label>
-        <div class="title-value">${data.title}</div>
-      </div>
-      <div class="outer description">
-        <label>Description</label>
-        <div class="description-value">${data.description}</div>
-      </div>
+    document.querySelector(".more-info").innerHTML = `
       <div class="outer submitter">
-        <label>Submitter</label>
+        <label class="submitter-label">Submitter</label>
         <div class="submitter-value">${data.submitter}</div>
       </div>
       <div class="outer assigned">
         <label>Assigned to</label>
-        <div class="">${data.assigned_to}</div>
+       <div class="assigned-value">${data.assigned_to}</div>
       </div>
       <div class="outer created-at">
-        <label>Created at</label>
-        <div class="">${data.created_at.toDate()}</div>
-      </div>
-      <div class="outer prio">
-        <label>Priority</label>
-        <div class="">${data.prio}</div>
-      </div>
-      <div class="outer status">
-        <label>Status</label>
-        <div class="">${data.status}</div>
+        <div class="created-at-inner">
+          <label>Created at</label>
+          <div class="" style="color: midnightblue;">${data.created_at.toDate()}</div>
+        </div>
       </div>
       <div class="outer project">
-        <label>Project</label>
-        <img id="" src="img/logo.svg" alt="bug tracker logo" />
+        <img id="" src="img/logo-new.svg" alt="bug tracker logo" />
+      </div>    
+      <div class="outer title">
+        <label>Title</label>
+        <div class="title-value">${capitalizeFirstLetter(data.title)}</div>
       </div>
-      <div class="outer ticket-id">
-        <label>Ticket ID</label>
-        <div class="">${uid}</div>
+      <div class="outer description">
+        <label>Description</label>
+        <div class="description-value">
+        ${capitalizeFirstLetter(data.description)}
+        </div>
       </div>
-  `;
+      <div class="bottom-row-more-info">
+        <div class="outer status">
+          <label>Status</label>
+          <div class="${data.status}">${data.status.toUpperCase()}</div>
+        </div>
+        <div class="outer prio">
+          <label>Priority</label>
+          <div class="${data.prio}">${capitalizeFirstLetter(data.prio)}</div>
+        </div>
+        <div class="outer ticket-id">
+          <label>Ticket ID</label>
+          <div class="ticket-id-value">${uid}</div>
+        </div>
+      </div>
+      `;
   } else {
     // doc.data() will be undefined in this case
     console.log("No such document!");
@@ -131,49 +136,32 @@ async function creatingBug(assigned_to, closed_at, created_at, description, gith
     console.error("Error adding document: ", e);
   }
 }
-
-async function deleteBug(uid) {
-  await deleteDoc(doc(db, "bugs", uid));
-}
-
 function removeClassNameFromNodes(allItems, classNameToRemove) {
   for (let i = 0; i < allItems.length; i++) {
     allItems[i].classList.remove(classNameToRemove);
   }
 }
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+async function deleteBug(uid) {
+  await deleteDoc(doc(db, "bugs", uid));
+}
+
 function createTableRow(snapshotChange) {
-  let bugStatus;
-  let prio;
+  let upperCaseStatus = snapshotChange.doc.data().status.toUpperCase();
+  let capitalPrio = capitalizeFirstLetter(snapshotChange.doc.data().prio);
   let assigned_to = snapshotChange.doc.data().assigned_to;
-
-  if (snapshotChange.doc.data().status == "pending") {
-    bugStatus = "PENDING";
-  } else if (snapshotChange.doc.data().status == "submitted") {
-    bugStatus = "SUBMITTED";
-  } else if (snapshotChange.doc.data().status == "inprogress") {
-    bugStatus = "IN PROGRESS";
-  } else if (snapshotChange.doc.data().status == "completed") {
-    bugStatus = "COMPLETED";
-  }
-  if (snapshotChange.doc.data().prio == "high") {
-    prio = "High";
-  } else if (snapshotChange.doc.data().prio == "medium") {
-    prio = "Medium";
-  } else if (snapshotChange.doc.data().prio == "low") {
-    prio = "Low";
-  } else if (snapshotChange.doc.data().prio == "closed") {
-    prio = "Closed";
-  }
-
   let newTRData = document.createElement("tr");
   // newTRData.classList.add("td-anim");
   newTRData.setAttribute("data-id", snapshotChange.doc.id);
 
   newTRData.innerHTML = `
       <td>${snapshotChange.doc.data().submitter}</td>
-      <td><span class="${snapshotChange.doc.data().status}">${bugStatus}</span> <span data-id="${snapshotChange.doc.id}"class="a-tag">${snapshotChange.doc.data().title}</span> - ${snapshotChange.doc.data().description}</td>
-      <td><span class="${snapshotChange.doc.data().prio}">${prio}</span></td>
+      <td><span class="${snapshotChange.doc.data().status}">${upperCaseStatus}</span> <span data-id="${snapshotChange.doc.id}"class="a-tag">${snapshotChange.doc.data().title}</span> - ${snapshotChange.doc.data().description}</td>
+      <td><span class="${snapshotChange.doc.data().prio}">${capitalPrio}</span></td>
       <td> <span class="${assigned_to}">${assigned_to}</span></td>
       <td>Bug Tracker</td>
   `;
