@@ -494,6 +494,10 @@ tr:hover {
   width: 100%;
 }
 
+.empty-input {
+  border: 2px solid red;
+}
+
 .form-control input,
 span.input {
   background-color: transparent;

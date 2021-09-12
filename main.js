@@ -166,11 +166,15 @@ addBug.addEventListener("click", () => {
 let title = document.querySelector(".form-control input");
 title.addEventListener("focus", () => {
   document.querySelector(".form-control input + label").style.transform = "translateY(-40px)";
+  document.querySelector("input.title").style.border = "0";
+  document.querySelector("span.input").style.border = "0";
 });
 
 let desc = document.querySelector("span.input");
 desc.addEventListener("focus", () => {
   document.querySelector("span.input + label").style.transform = "translateY(-40px)";
+  document.querySelector("input.title").style.border = "0";
+  document.querySelector("span.input").style.border = "0";
 });
 
 let isGithubAPIon = false;
@@ -198,19 +202,22 @@ submitBugButton.addEventListener("click", (e) => {
   e.preventDefault();
   let title = document.querySelector("input.title").value;
   let desc = document.querySelector("span.input").innerText;
-
-  let username;
-  onAuthStateChanged(auth, (user) => {
-    username = user.displayName != null ? user.displayName : user.email;
-    console.log(username);
-    firebaseUtils.addDoc("unassigned", "", Timestamp.now(), desc, "", username, title, "high", "submitted");
-    document.querySelector("input.title").value = "";
-    document.querySelector("span.input").innerText = "";
-  });
-
-  // eventually remove modal
-  document.querySelector(".modal-show").style.transform = "translateY(-150%)";
-  document.querySelector(".modal-space").classList.remove("modal-anim");
+  if (title != "" && desc != "") {
+    let username;
+    onAuthStateChanged(auth, (user) => {
+      username = user.displayName != null ? user.displayName : user.email;
+      console.log(username);
+      firebaseUtils.addDoc("unassigned", "", Timestamp.now(), desc, "", username, title, "high", "submitted");
+      document.querySelector("input.title").value = "";
+      document.querySelector("span.input").innerText = "";
+    });
+    // eventually remove modal
+    document.querySelector(".modal-show").style.transform = "translateY(-150%)";
+    document.querySelector(".modal-space").classList.remove("modal-anim");
+  } else if (title == "" && desc == "") {
+    document.querySelector("input.title").style.border = "2px solid red";
+    document.querySelector("span.input").style.border = "2px solid red";
+  }
 });
 
 window.addEventListener("popstate", () => {

@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
 import { onAuthStateChanged, GoogleAuthProvider, getAuth, signOut, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
-import { collection, doc, Timestamp, onSnapshot, deleteDoc, getDocs, getDoc, getFirestore, addDoc, updateDoc, query, where } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+import { collection, doc, Timestamp, onSnapshot, deleteDoc, getDocs, getDoc, getFirestore, addDoc, updateDoc, limit, orderBy, query, where } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -113,7 +113,6 @@ async function readDoc(uid) {
 
   if (docSnap.exists()) {
     let data = docSnap.data();
-    // Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus quae autem sequi maiores ullam? Inventore blanditiis nisi error nulla similique beatae voluptates nobis, provident ex rem? Quam facilis illo doloribus, ipsam sequi debitis dignissimos fuga veritatis magnam? Quas excepturi consequatur possimus, ipsum perferendis molestias mollitia accusamus, delectus odit magni veniam.
     document.querySelector(".more-info").innerHTML = `
       <div class="top-row-more-info">
         <div class="outer submitter">
@@ -146,6 +145,7 @@ async function readDoc(uid) {
         <label>Description</label>
         <div class="description-value">
         ${capitalizeFirstLetter(data.description)}
+        <span style="color: blue;"> # Filler text start -- Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus quae autem sequi maiores ullam? Inventore blanditiis nisi error nulla similique beatae voluptates nobis, provident ex rem? Quam facilis illo doloribus, ipsam sequi .</span>  
         </div>
       </div>
       <div class="bottom-row-more-info">
@@ -202,10 +202,12 @@ async function creatingBug(assigned_to, closed_at, created_at, description, gith
       title: title,
       prio: prio,
       status: status,
+      deleteBug: null,
       bugs: "bugs",
     });
 
     console.log("Document written with ID: ", docRef.id);
+    location.reload();
   } catch (e) {
     console.error("Error adding document: ", e);
   }
@@ -229,7 +231,7 @@ function createTableRow(snapshotChange) {
   let capitalPrio = capitalizeFirstLetter(snapshotChange.doc.data().prio);
   let assigned_to = snapshotChange.doc.data().assigned_to;
   let newTRData = document.createElement("tr");
-  // newTRData.classList.add("td-anim");
+
   newTRData.setAttribute("data-id", snapshotChange.doc.id);
 
   newTRData.innerHTML = `
@@ -240,24 +242,18 @@ function createTableRow(snapshotChange) {
       <td>Bug Tracker</td>
   `;
 
-  let data = snapshotChange.doc.data();
-  let dateCreated = data.created_at.toDate(); //will turn the timestamp firebase into date
-
   if (snapshotChange.doc.data().deleteBug) {
     newTRData.classList.add("deleted-row");
   }
   return newTRData;
 }
-
+let totalNumberOfBug;
 function snapShotListen() {
-  const q = query(bugsCollection, where("bugs", "==", "bugs"));
+  const q = query(bugsCollection, where("bugs", "==", "bugs"), orderBy("created_at", "desc"));
   const unsubscribe = onSnapshot(q, (snapshot) => {
     snapshot.docChanges().forEach((change) => {
       if (change.type === "added") {
-        // console.log("Added something: ", change.doc.data(), change.doc.id);
-
         let newTRData = createTableRow(change);
-
         document.querySelector("table.data").appendChild(newTRData);
       }
       if (change.type === "modified") {
@@ -271,19 +267,19 @@ function snapShotListen() {
 
         let newTRData = createTableRow(change);
         newTRData.classList.add("td-anim");
-
-        // debugger;
-
         parentToReplace.replaceChild(newTRData, oldTRData);
       }
       if (change.type === "removed") {
-        console.log("removed something: ", change.doc.data(), change.doc.id);
         let tr = document.querySelector(`[data-id='${change.doc.id}']`);
         let allTD = document.querySelectorAll(".td-anim");
         removeClassNameFromNodes(allTD, "td-anim");
         document.querySelector("table.data").removeChild(tr);
       }
     });
+
+    //setting numbers of bug
+    document.getElementById("bug-number").innerHTML = snapshot.docs.length;
+
     let allATag = document.querySelectorAll("span.a-tag");
 
     allATag.forEach((item) => {
@@ -291,20 +287,6 @@ function snapShotListen() {
         location.href = location.origin + location.pathname + "#" + e.target.dataset.id;
       });
     });
-  });
-}
-
-async function updateBug(assigned_to, closed_at, created_at, description, github_repo, submitter, title, uid) {
-  const tempRef = doc(db, "bugs", uid);
-  await updateDoc(tempRef, {
-    assigned_to: assigned_to,
-    closed_at: closed_at,
-    created_at: created_at,
-    description: description,
-    github_repo: github_repo,
-    submitter: submitter,
-    title: title,
-    bugs: "bugs",
   });
 }
 
@@ -331,7 +313,7 @@ let firebaseUtils = {
   addDoc: creatingBug,
   deleteDoc: deleteBug,
   onSnapshot: snapShotListen,
-  updateDoc: updateBug,
+  // updateDoc: updateBug,
   signInWithEmailAndPassword: demoAccountSignIn,
   getDoc: readDoc,
 };
