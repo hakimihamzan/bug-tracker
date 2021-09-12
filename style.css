@@ -293,6 +293,7 @@ body {
   padding: 5px;
   font-size: smaller;
   border-radius: 5px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 .medium {
   background-color: #ce0692;
@@ -300,6 +301,7 @@ body {
   padding: 5px;
   font-size: smaller;
   border-radius: 5px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 .low {
   background-color: #007e77;
@@ -307,6 +309,7 @@ body {
   padding: 5px;
   font-size: smaller;
   border-radius: 5px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 .closed {
   background-color: #dbdbdb;
@@ -314,6 +317,7 @@ body {
   padding: 5px;
   font-size: smaller;
   border-radius: 5px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 
 .unassigned {
@@ -680,42 +684,55 @@ span.input:focus {
   grid-area: description;
 }
 .submitter {
+  flex-grow: 1;
   grid-area: submitter;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-right: 10px;
 }
 .assigned {
+  flex-grow: 1;
   grid-area: assigned;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-right: 10px;
 }
 
 .created-at {
+  flex-grow: 1;
   grid-area: created-at;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 0;
+  margin-right: 10px;
 }
 
 .outer.created-at {
   padding: 0;
 }
+
 .created-at-inner {
   max-width: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: justify;
 }
 
 .bottom-row-more-info {
   grid-area: bottom-row-more-info;
+  display: flex;
+}
+
+.top-row-more-info {
+  grid-area: top-row-more-info;
   display: flex;
 }
 .prio,
@@ -750,6 +767,7 @@ span.input:focus {
   justify-content: center;
   align-items: center;
   background-color: #313a46;
+  width: max-content;
 }
 
 .project.outer {
@@ -784,7 +802,7 @@ span.input:focus {
 }
 
 .form-select {
-  width: 105%;
+  border-width: 0;
 }
 
 .form-select.assigned-value {
@@ -804,10 +822,9 @@ span.input:focus {
   width: 80%;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   position: relative;
-
   display: grid;
   grid-template-areas:
-    "submitter assigned created-at project"
+    "top-row-more-info top-row-more-info top-row-more-info top-row-more-info"
     "title title title title"
     "description description description description"
     "bottom-row-more-info bottom-row-more-info bottom-row-more-info bottom-row-more-info";

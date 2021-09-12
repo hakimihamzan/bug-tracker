@@ -79,6 +79,20 @@ function creatingSelectOptionsForAssign(list, data) {
   return returnedList.join(" ");
 }
 
+function creatingSelectOptionsForPrio(list, data) {
+  let assignedValue = data.prio.toLowerCase();
+  list.push(assignedValue);
+  let newList = [...new Set(list)];
+  let returnedList = newList.map((i) => {
+    if (i == assignedValue) {
+      return `<option selected value="${i}">${capitalizeFirstLetter(i)}</option>`;
+    } else {
+      return `<option value="${i}">${capitalizeFirstLetter(i)}</option>`;
+    }
+  });
+  return returnedList.join(" ");
+}
+
 function creatingSelectOptionsForStatus(list, data) {
   let assignedValue = data.status.toLowerCase();
   list.push(assignedValue);
@@ -112,28 +126,30 @@ async function readDoc(uid) {
 
   if (docSnap.exists()) {
     let data = docSnap.data();
-
+    // Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus quae autem sequi maiores ullam? Inventore blanditiis nisi error nulla similique beatae voluptates nobis, provident ex rem? Quam facilis illo doloribus, ipsam sequi debitis dignissimos fuga veritatis magnam? Quas excepturi consequatur possimus, ipsum perferendis molestias mollitia accusamus, delectus odit magni veniam.
     document.querySelector(".more-info").innerHTML = `
-      <div class="outer submitter">
-        <label class="submitter-label">Submitter</label>
-        <div class="submitter-value">${data.submitter}</div>
-      </div>
-      <div class="outer assigned">
-        <label>Assigned to</label>
-       <div class="assigned-value">
-        <select class="form-select assigned-value" aria-label="Default select example">
-          ${creatingSelectOptionsForAssign(developersList, data)}
-        </select>
-      </div>
-      </div>
-      <div class="outer created-at">
-        <div class="created-at-inner">
-          <label>Created at</label>
-          <div class="" style="color: midnightblue;">${data.created_at.toDate()}</div>
+      <div class="top-row-more-info">
+        <div class="outer submitter">
+          <label class="submitter-label">Submitter</label>
+          <div class="submitter-value">${data.submitter}</div>
         </div>
-      </div>
-      <div class="outer project">
-        <img id="" src="img/logo-new.svg" alt="bug tracker logo" />
+        <div class="outer assigned">
+          <label>Assigned to</label>
+        <div class="assigned-value">
+          <select class="form-select assigned-value selected-assigned">
+            ${creatingSelectOptionsForAssign(developersList, data)}
+          </select>
+        </div>
+        </div>
+        <div class="outer created-at">
+          <div class="created-at-inner">
+            <label>Created at</label>
+            <div class="" style="color: midnightblue;">${data.created_at.toDate()}</div>
+          </div>
+        </div>
+        <div class="outer project">
+          <img id="" src="img/logo-new.svg" alt="bug tracker logo" />
+        </div>
       </div>    
       <div class="outer title">
         <label>Title</label>
@@ -148,17 +164,17 @@ async function readDoc(uid) {
       <div class="bottom-row-more-info">
         <div class="outer status">
           <label>Status</label>
-          <select class="form-select ${data.status}" aria-label="Default select example">
+          <select class="form-select ${data.status} selected-status">
           ${creatingSelectOptionsForStatus(statusList, data)}
+          creatingSelectOptionsForPrio(list, data)
           </select>
         </div>
         <div class="outer prio">
           <label>Priority</label>
-          <div class="${data.prio}">${capitalizeFirstLetter(data.prio)}</div>
-        </div>
-        <div class="outer ticket-id">
-          <label>Ticket ID</label>
-          <div class="ticket-id-value">${uid}</div>
+          <select class="form-select ${data.prio} selected-status">
+          ${creatingSelectOptionsForPrio(prioList, data)}
+          creatingSelectOptionsForPrio(list, data)
+          </select>
         </div>
       </div>
       `;
