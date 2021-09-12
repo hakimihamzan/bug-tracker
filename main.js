@@ -86,7 +86,7 @@ function isUserLoggedIn() {
         userGreetings.innerHTML = `Hello, ${user.email}`;
         changeLogInOutBtnVisibility(login, loginInfo, logout, true);
       }
-      document.querySelector("button.delete").enabled = "true";
+      document.querySelector("button.update").enabled = "true";
       document.querySelector("button.update").enabled = "true";
     } else {
       document.getElementById("app").style.transform = "translateY(0)";
@@ -229,30 +229,39 @@ async function deleteThings(uid) {
   await updateDoc(tempRef, {
     deleteBug: true,
   });
+  document.querySelector(".modal-more-info").style.transform = "translateX(400%)";
+  location.href = location.origin + location.pathname;
 }
 
 // only enable deleteButton when 2 people loggedin (admin, managerDemo)
 // disable both update and deletebuttons when no user logged in
-// devDemo can only update status
+// devDemo can only update status, priority
 // managerDemo can update Status, assign to people & update priority
-async function updateThings(uid) {
+async function updateThings(uid, status, prio, assignedTo) {
   const tempRef = doc(db, "bugs", uid);
   await updateDoc(tempRef, {
-    assigned_to: "test",
+    status: status,
+    prio: prio,
+    assigned_to: assignedTo,
     deleteBug: null,
   });
+  document.querySelector(".modal-more-info").style.transform = "translateX(400%)";
+  location.href = location.origin + location.pathname;
 }
 
 let deleteBugButton = document.querySelector("button.delete");
 deleteBugButton.addEventListener("click", function (e) {
   e.preventDefault();
   let uid = document.querySelector(".more-info").getAttribute("data-id");
-  // deleteThings(uid);
+  deleteThings(uid);
 });
 
 let updateBugButton = document.querySelector("button.update");
 updateBugButton.addEventListener("click", (e) => {
   e.preventDefault();
   let uid = document.querySelector(".more-info").getAttribute("data-id");
-  // updateThings(uid);
+  let status = document.querySelector("select.selected-status");
+  let prio = document.querySelector("select.selected-prio");
+  let assigned = document.querySelector("select.selected-assigned");
+  updateThings(uid, status.value, prio.value, assigned.value);
 });

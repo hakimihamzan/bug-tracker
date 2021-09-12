@@ -107,19 +107,6 @@ function creatingSelectOptionsForStatus(list, data) {
   return returnedList.join(" ");
 }
 
-// <option selected value="${data.assigned_to}">${data.assigned_to}</option>
-// <option value="tilak">Tilak</option>
-// <option value="boss">boss</option>
-// <option value="boss2">boss2</option>
-// <option value="dev">dev</option>
-// <option value="goku">goku</option>
-// <option value="unassigned">Unassigned</option>
-
-// <option selected value="${data.status.toUpperCase()}">${data.status.toUpperCase()}</option>
-// <option value="completed">COMPLETED</option>
-// <option value="pending">PENDING</option>
-// <option value="inprogress">IN PROGRESS</option>
-
 async function readDoc(uid) {
   const docRef = doc(db, "bugs", uid);
   const docSnap = await getDoc(docRef);
@@ -166,18 +153,37 @@ async function readDoc(uid) {
           <label>Status</label>
           <select class="form-select ${data.status} selected-status">
           ${creatingSelectOptionsForStatus(statusList, data)}
-          creatingSelectOptionsForPrio(list, data)
           </select>
         </div>
         <div class="outer prio">
           <label>Priority</label>
-          <select class="form-select ${data.prio} selected-status">
-          ${creatingSelectOptionsForPrio(prioList, data)}
-          creatingSelectOptionsForPrio(list, data)
+          <select class="form-select ${data.prio} selected-prio">
+            ${creatingSelectOptionsForPrio(prioList, data)}
           </select>
         </div>
       </div>
       `;
+
+    onAuthStateChanged(auth, (user) => {
+      if (user != null) {
+        if (user.email == "dev@goo.com") {
+          document.querySelector("button.delete").disabled = "true";
+          document.querySelector("select.selected-assigned").disabled = "true";
+        }
+        if (user.email != "manager@goo.com" && user.email != "dev@goo.com") {
+          document.querySelector("button.delete").disabled = "true";
+          document.querySelector("select.selected-assigned").disabled = "true";
+          document.querySelector("button.update").disabled = "true";
+          document.querySelector("select.selected-status").disabled = "true";
+          document.querySelector("select.selected-prio").disabled = "true";
+        }
+      } else {
+        let allSelect = document.querySelectorAll("select");
+        allSelect.forEach((item) => {
+          item.disabled = "true";
+        });
+      }
+    });
   } else {
     // doc.data() will be undefined in this case
     console.log("No such document!");
