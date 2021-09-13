@@ -579,7 +579,7 @@ span.input:focus {
   position: absolute;
   color: white;
   width: 90%;
-  height: 95%;
+  height: 90%;
   background-color: transparent;
   transform: translateY(-500%);
   transition: 0.5s;
@@ -603,9 +603,32 @@ span.input:focus {
   color: rgba(255, 255, 255, 0.425);
 }
 
+span.result-title {
+  background-color: white;
+  padding: 2px;
+  margin: 0 4px;
+  border-radius: 3px;
+}
+
+span.result-title a {
+  width: 30%;
+}
+
+.add-git-repo {
+  margin: 0 7px;
+  padding: 5px;
+}
+
 .search-result {
   font-size: 1.2rem;
   margin: 10px;
+  width: 95%;
+  /* initially hidden but when search is clicked and div is populated then overflow-y scroll  */
+  /* overflow-y: scroll; */
+  height: 80%;
+}
+.result-text {
+  margin-right: 1px;
 }
 
 .close-icon {
@@ -622,7 +645,7 @@ span.input:focus {
   width: 100%;
   text-align: left;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   line-height: 1.2;
   padding: 5px 0;
@@ -631,6 +654,7 @@ span.input:focus {
 
 .add-github {
   cursor: pointer;
+  margin-left: auto;
 }
 
 .search-icon {

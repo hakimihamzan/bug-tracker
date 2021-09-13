@@ -1,6 +1,7 @@
 import { auth, firebaseUtils, Timestamp, db } from "./component/firebase.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
 import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+import { callingApi, githubRepoList } from "./component/github-api.js";
 
 //check loggedin users
 isUserLoggedIn();
@@ -40,6 +41,13 @@ window.onclick = function (event) {
     document.querySelector(".modal-show").style.transform = "translateY(-150%)";
     // document.body.style.overflowY = "scroll";
     document.querySelector(".modal-space").classList.remove("modal-anim");
+    document.querySelector("input.title").value = "";
+    document.querySelector("span.input").innerText = "";
+    document.querySelector(".github").classList.remove("github-space");
+    document.querySelector(".api").style.transform = "translateY(-500%)";
+    document.querySelector(".search-result").style.overflowY = "hidden";
+    document.querySelector(".search-result").innerHTML = "";
+    searchGitInput.value = "";
   }
 
   if (!event.target.matches("span.input")) {
@@ -55,7 +63,6 @@ window.onclick = function (event) {
   }
 
   if (event.target.matches(".modal-more-info")) {
-    // document.querySelector(".modal-more-info").style.transform = "scale(0)";
     document.querySelector(".modal-more-info").style.transform = "translateX(400%)";
     location.href = location.origin + location.pathname;
   }
@@ -74,7 +81,6 @@ function isUserLoggedIn() {
     if (user != null) {
       document.getElementById("app").style.transform = "translateY(1rem)";
       document.querySelector(".add-bug").style.transform = "translateY(-40px)";
-      // document.querySelector(".add-bug").style.opacity = "100";
       document.querySelector(".add-bug").style.visibility = "visible";
       demoButton.style.visibility = "hidden";
       if (user.displayName != null) {
@@ -91,7 +97,6 @@ function isUserLoggedIn() {
     } else {
       document.getElementById("app").style.transform = "translateY(0)";
       document.querySelector(".add-bug").style.transform = "translateY(10px)";
-      // document.querySelector(".add-bug").style.opacity = "0";
       document.querySelector(".add-bug").style.visibility = "hidden";
       console.log("no user loggedin");
       userGreetings.innerHTML = "";
@@ -191,10 +196,23 @@ optionalGithubSuggestion.addEventListener("click", () => {
   }
 });
 
+let searchGitInput = document.querySelector(".api-input");
+// git api
+let searchGitBtn = document.querySelector(".search-icon");
+searchGitBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  // console.log(searchGitInput.value);
+  document.querySelector(".search-result").style.overflowY = "scroll";
+  callingApi(searchGitInput.value);
+});
+
 document.querySelector(".close-icon").addEventListener("click", () => {
   isGithubAPIon = false;
   document.querySelector(".github").classList.remove("github-space");
   document.querySelector(".api").style.transform = "translateY(-500%)";
+  document.querySelector(".search-result").style.overflowY = "hidden";
+  document.querySelector(".search-result").innerHTML = "";
+  searchGitInput.value = "";
 });
 
 let submitBugButton = document.querySelector(".submit-bug-btn");
@@ -207,7 +225,7 @@ submitBugButton.addEventListener("click", (e) => {
     onAuthStateChanged(auth, (user) => {
       username = user.displayName != null ? user.displayName : user.email;
       console.log(username);
-      firebaseUtils.addDoc("unassigned", "", Timestamp.now(), desc, "", username, title, "high", "submitted");
+      firebaseUtils.addDoc("unassigned", "", Timestamp.now(), desc, "", username, title, "high", "submitted", githubRepoList);
       document.querySelector("input.title").value = "";
       document.querySelector("span.input").innerText = "";
     });
