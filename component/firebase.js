@@ -190,20 +190,19 @@ async function readDoc(uid) {
   }
 }
 
-async function creatingBug(assigned_to, closed_at, created_at, description, github_repo, submitter, title, prio, status, gitRepoList) {
+async function creatingBug(assigned_to, closed_at, created_at, description, submitter, title, prio, status, gitRepoList) {
   try {
     const docRef = await addDoc(bugsCollection, {
       assigned_to: assigned_to,
       closed_at: closed_at,
       created_at: created_at,
       description: description,
-      github_repo: github_repo,
       submitter: submitter,
       title: title,
       prio: prio,
       status: status,
       deleteBug: null,
-      gitRepoList: gitRepoList,
+      git_repo_list: gitRepoList,
       bugs: "bugs",
     });
 

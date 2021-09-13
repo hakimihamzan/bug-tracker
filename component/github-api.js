@@ -14,6 +14,7 @@ function callingApi(searchQuery) {
 
   function handleData(data) {
     let resultsArray = data.items;
+
     resultsArray.forEach((item, idx) => {
       let divResult = document.createElement("div");
       divResult.classList.add("result");
@@ -34,9 +35,20 @@ function callingApi(searchQuery) {
         addGitBtn.style.visibility = "hidden";
         document.querySelector(".optional").style.fontWeight = "800";
         document.querySelector(".optional").style.cursor = "default";
+
+        let convertedList = githubRepoList.map((item, i) => {
+          return `<a href="${item}" target="_blank">Repo: #${i}</a>`;
+        });
+
         document.querySelector(".optional").innerHTML = `
-            GIT REPO ADDED: ${githubRepoList.length} 
+            <div class="dropdown">
+              <div class="dropbtn">GIT REPO ADDED: ${githubRepoList.length}</div>
+              <div class="dropdown-content">
+              ${convertedList.join(" ")}
+              </div>
+            </div> 
         `;
+        // document.querySelector(".optional").removeEventListener("click");
       });
     });
     //   debugger;

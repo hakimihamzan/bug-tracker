@@ -48,6 +48,12 @@ window.onclick = function (event) {
     document.querySelector(".search-result").style.overflowY = "hidden";
     document.querySelector(".search-result").innerHTML = "";
     searchGitInput.value = "";
+    document.querySelector(".optional").innerHTML = `
+        <i>Optional</i> - suggest a GitHub repo to help solve <i class="fas fa-plus ml-5"></i>
+      `;
+    document.querySelector(".optional").addEventListener("click", handleGitHubResult);
+
+    // githubRepoList = [];
   }
 
   if (!event.target.matches("span.input")) {
@@ -182,19 +188,23 @@ desc.addEventListener("focus", () => {
   document.querySelector("span.input").style.border = "0";
 });
 
-let isGithubAPIon = false;
-let optionalGithubSuggestion = document.querySelector(".optional");
-optionalGithubSuggestion.addEventListener("click", () => {
+function handleGitHubResult() {
   if (!isGithubAPIon) {
     document.querySelector(".github").classList.add("github-space");
     document.querySelector(".api").style.transform = "translateY(0)";
     isGithubAPIon = true;
+    optionalGithubSuggestion.removeEventListener("click", handleGitHubResult);
   } else {
     isGithubAPIon = false;
     document.querySelector(".github").classList.remove("github-space");
     document.querySelector(".api").style.transform = "translateY(-500%)";
+    optionalGithubSuggestion.addEventListener("click", handleGitHubResult);
   }
-});
+}
+
+let isGithubAPIon = false;
+let optionalGithubSuggestion = document.querySelector(".optional");
+optionalGithubSuggestion.addEventListener("click", handleGitHubResult);
 
 let searchGitInput = document.querySelector(".api-input");
 // git api
@@ -213,6 +223,7 @@ document.querySelector(".close-icon").addEventListener("click", () => {
   document.querySelector(".search-result").style.overflowY = "hidden";
   document.querySelector(".search-result").innerHTML = "";
   searchGitInput.value = "";
+  optionalGithubSuggestion.addEventListener("click", handleGitHubResult);
 });
 
 let submitBugButton = document.querySelector(".submit-bug-btn");
@@ -225,7 +236,7 @@ submitBugButton.addEventListener("click", (e) => {
     onAuthStateChanged(auth, (user) => {
       username = user.displayName != null ? user.displayName : user.email;
       console.log(username);
-      firebaseUtils.addDoc("unassigned", "", Timestamp.now(), desc, "", username, title, "high", "submitted", githubRepoList);
+      firebaseUtils.addDoc("unassigned", "", Timestamp.now(), desc, username, title, "high", "submitted", githubRepoList);
       document.querySelector("input.title").value = "";
       document.querySelector("span.input").innerText = "";
     });
