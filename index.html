@@ -29,35 +29,31 @@
     <div class="nav-container">
       <img id="logo" src="img/logo-new.svg" alt="bug tracker logo" />
       <div class="side-btn-container">
-        <div class="side-btn select">
+        <div data-id="1" class="side-btn select">
           <img class="filter-grey" src="img//radio_button_checked_white_24dp.svg" alt="login" />
           <div class="inline">Every Bugs</div>
           <div class="inline number-every-bugs" id="bug-number"></div>
         </div>
-        <div class="side-btn">
+        <div data-id="2" class="side-btn">
           <img class="filter-grey" src="img/indeterminate_check_box_white_24dp.svg" alt="login" />
           <div class="inline">Unassigned</div>
-          <div class="inline number-unassigned" id="bug-number">00</div>
+          <div class="inline number-unassigned" id="bug-number"></div>
         </div>
-        <div class="side-btn">
-          <img class="filter-grey" src="img/person_outline_white_24dp.svg" alt="login" />
-          <div class="inline">Assigned to You</div>
-          <div class="inline number-assigned-to-you" id="bug-number">00</div>
-        </div>
-        <div class="side-btn">
-          <img class="filter-grey" src="img/group_white_24dp.svg" alt="login" />
-          <div class="inline">Assigned to Others</div>
-          <div class="inline number-assigned-to-others" id="bug-number">00</div>
-        </div>
-        <div class="side-btn">
+        <div data-id="5" class="side-btn">
           <img class="filter-grey" src="img/visibility_white_24dp.svg" alt="login" />
           <div class="inline">Active</div>
-          <div class="inline number-active" id="bug-number">00</div>
+          <div class="inline number-active" id="bug-number"></div>
         </div>
-        <div class="side-btn">
+        <div data-id="6" class="side-btn">
           <img class="filter-grey" src="img/published_with_changes_white_24dp.svg" alt="login" />
           <div class="inline">Inactive</div>
-          <div class="inline number-inactive" id="bug-number">00</div>
+          <div class="inline number-inactive" id="bug-number"></div>
+        </div>
+        <div data-id="7" class="side-btn">
+          <!-- <img class="filter-grey" src="img/published_with_changes_white_24dp.svg" alt="login" /> -->
+          <i style="color: white; font-size: 1.3rem;" class="far fa-trash-alt filter-grey"></i>
+          <div class="inline">Deleted</div>
+          <div class="inline number-inactive" id="bug-number"></div>
         </div>
       </div>
       <div class="user-greet"></div>

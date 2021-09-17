@@ -78,7 +78,8 @@ body {
   border-radius: 2px;
 }
 
-.side-btn img {
+.side-btn img,
+.side-btn i {
   margin-right: 1rem;
 }
 
@@ -367,7 +368,7 @@ table.data {
 }
 
 th {
-  animation: mytable2 3s;
+  animation: mytable2 0.5s;
   padding: 10px 20px;
   background-color: #f3f3f3;
 }

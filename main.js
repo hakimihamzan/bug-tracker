@@ -1,4 +1,4 @@
-import { auth, firebaseUtils, Timestamp, db } from "./component/firebase.js";
+import { auth, firebaseUtils, Timestamp, db, changeNumberToBeAssigned } from "./component/firebase.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
 import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
 import { callingApi, githubRepoList } from "./component/github-api.js";
@@ -9,13 +9,13 @@ isUserLoggedIn();
 // sidebar nav buttons behavior
 let allSideButton = document.querySelectorAll(".side-btn");
 //adding click listener to each sidebar button and added color
-for (let i = 0; i < allSideButton.length; i++) {
-  let button = allSideButton[i];
-  button.addEventListener("click", () => {
+allSideButton.forEach((i, idx) => {
+  i.addEventListener("click", () => {
     firebaseUtils.removeClassNameFromNodes(allSideButton, "select");
-    button.classList.add("select");
+    i.classList.add("select");
+    changeNumberToBeAssigned(i.getAttribute("data-id"));
   });
-}
+});
 
 // demo sign in button dropdown
 let isDemoDropHidden = true;
@@ -48,10 +48,10 @@ window.onclick = function (event) {
     document.querySelector(".search-result").style.overflowY = "hidden";
     document.querySelector(".search-result").innerHTML = "";
     searchGitInput.value = "";
-    document.querySelector(".optional").innerHTML = `
-        <i>Optional</i> - suggest a GitHub repo to help solve <i class="fas fa-plus ml-5"></i>
-      `;
-    document.querySelector(".optional").addEventListener("click", handleGitHubResult);
+    // document.querySelector(".optional").innerHTML = `
+    //     <i>Optional</i> - suggest a GitHub repo to help solve <i class="fas fa-plus ml-5"></i>
+    //   `;
+    // document.querySelector(".optional").addEventListener("click", handleGitHubResult);
 
     // githubRepoList = [];
   }
@@ -193,12 +193,12 @@ function handleGitHubResult() {
     document.querySelector(".github").classList.add("github-space");
     document.querySelector(".api").style.transform = "translateY(0)";
     isGithubAPIon = true;
-    optionalGithubSuggestion.removeEventListener("click", handleGitHubResult);
+    // optionalGithubSuggestion.removeEventListener("click", handleGitHubResult);
   } else {
     isGithubAPIon = false;
     document.querySelector(".github").classList.remove("github-space");
     document.querySelector(".api").style.transform = "translateY(-500%)";
-    optionalGithubSuggestion.addEventListener("click", handleGitHubResult);
+    // optionalGithubSuggestion.addEventListener("click", handleGitHubResult);
   }
 }
 
@@ -223,7 +223,6 @@ document.querySelector(".close-icon").addEventListener("click", () => {
   document.querySelector(".search-result").style.overflowY = "hidden";
   document.querySelector(".search-result").innerHTML = "";
   searchGitInput.value = "";
-  optionalGithubSuggestion.addEventListener("click", handleGitHubResult);
 });
 
 let submitBugButton = document.querySelector(".submit-bug-btn");

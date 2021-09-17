@@ -22,7 +22,9 @@ const bugsCollection = collection(db, "bugs");
 // first thing first -- allow google sign-in in authentication firebase
 const provider = new GoogleAuthProvider();
 
-snapShotListen();
+let q = query(bugsCollection, where("bugs", "==", "bugs"), orderBy("created_at", "desc"));
+
+snapShotListen(q);
 
 function signInWithPopupMain() {
   signInWithPopup(auth, provider)
@@ -226,6 +228,47 @@ async function deleteBug(uid) {
   await deleteDoc(doc(db, "bugs", uid));
 }
 
+let numberToBeAssigned;
+
+let sidebarQuery = {
+  // const q = query(bugsCollection, where("bugs", "==", "bugs"), orderBy("created_at", "desc"));
+  1: "everybugs", //created_at , desc
+
+  // const q = query(bugsCollection, where("bugs", "==", "bugs"), where("assigned_to", "==", "unassigned"), orderBy("created_at", "desc"));
+  2: "unassigned", // assigned_to : unassigned
+
+  3: "assigned-to-you", // assigned_to : dude-signed-in
+  4: "assigned-to-others", // assigned_to : not dude signed-in
+
+  // const q = query(bugsCollection, where("bugs", "==", "bugs"), where("prio", "!=", "closed"), orderBy("prio"), orderBy("created_at", "desc"));
+  5: "active", // priority: !closed
+
+  // const q = query(bugsCollection, where("bugs", "==", "bugs"), where("prio", "==", "closed"), orderBy("created_at", "desc"));
+  6: "inactive", // priority : closed
+
+  // const q = query(bugsCollection, where("bugs", "==", "bugs"), where("deleteBug", "==", true), orderBy("created_at", "desc"));
+  7: "deleted",
+};
+function changeNumberToBeAssigned(number) {
+  numberToBeAssigned = number;
+  if (numberToBeAssigned == 1) {
+    q = query(bugsCollection, where("bugs", "==", "bugs"), orderBy("created_at", "desc"));
+    snapShotListen(q);
+  } else if (numberToBeAssigned == 2) {
+    q = query(bugsCollection, where("bugs", "==", "bugs"), where("assigned_to", "==", "unassigned"), orderBy("created_at", "desc"));
+    snapShotListen(q);
+  } else if (numberToBeAssigned == 5) {
+    q = query(bugsCollection, where("bugs", "==", "bugs"), where("prio", "!=", "closed"), orderBy("prio"), orderBy("created_at", "desc"));
+    snapShotListen(q);
+  } else if (numberToBeAssigned == 6) {
+    q = query(bugsCollection, where("bugs", "==", "bugs"), where("prio", "==", "closed"), orderBy("created_at", "desc"));
+    snapShotListen(q);
+  } else if (numberToBeAssigned == 7) {
+    q = query(bugsCollection, where("bugs", "==", "bugs"), where("deleteBug", "==", true), orderBy("created_at", "desc"));
+    snapShotListen(q);
+  }
+}
+
 function createTableRow(snapshotChange) {
   let upperCaseStatus = snapshotChange.doc.data().status.toUpperCase();
   let capitalPrio = capitalizeFirstLetter(snapshotChange.doc.data().prio);
@@ -247,10 +290,21 @@ function createTableRow(snapshotChange) {
   }
   return newTRData;
 }
-let totalNumberOfBug;
-function snapShotListen() {
-  const q = query(bugsCollection, where("bugs", "==", "bugs"), orderBy("created_at", "desc"));
+
+function snapShotListen(q) {
   const unsubscribe = onSnapshot(q, (snapshot) => {
+    let tableData = document.querySelector("table.data");
+    if (tableData.childElementCount > 1) {
+      tableData.innerHTML = `
+      <tr>
+          <th>Submitter</th>
+          <th>Issue</th>
+          <th>Priority</th>
+          <th>Assigned</th>
+          <th>Project</th>
+        </tr>
+      `;
+    }
     snapshot.docChanges().forEach((change) => {
       if (change.type === "added") {
         let newTRData = createTableRow(change);
@@ -278,7 +332,8 @@ function snapShotListen() {
     });
 
     //setting numbers of bug
-    document.getElementById("bug-number").innerHTML = snapshot.docs.length;
+    bugsNumberForRow(snapshot.docs.length);
+    // document.getElementById("bug-number").innerHTML = snapshot.docs.length;
 
     let allATag = document.querySelectorAll("span.a-tag");
 
@@ -288,6 +343,12 @@ function snapShotListen() {
       });
     });
   });
+}
+
+function bugsNumberForRow(num) {
+  console.log(num);
+  let test = document.querySelector(".select .inline").nextElementSibling;
+  test.innerText = num;
 }
 
 async function demoAccountSignIn(email, password) {
@@ -318,4 +379,4 @@ let firebaseUtils = {
   getDoc: readDoc,
 };
 
-export { firebaseUtils, auth, Timestamp, db };
+export { firebaseUtils, auth, Timestamp, db, changeNumberToBeAssigned };
