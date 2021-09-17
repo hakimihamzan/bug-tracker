@@ -1,7 +1,7 @@
 import { auth, firebaseUtils, Timestamp, db, changeNumberToBeAssigned } from "./component/firebase.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
 import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
-import { callingApi, githubRepoList } from "./component/github-api.js";
+import { callingApi, emptyGitRepoList, githubRepoList } from "./component/github-api.js";
 
 //check loggedin users
 isUserLoggedIn();
@@ -48,12 +48,7 @@ window.onclick = function (event) {
     document.querySelector(".search-result").style.overflowY = "hidden";
     document.querySelector(".search-result").innerHTML = "";
     searchGitInput.value = "";
-    // document.querySelector(".optional").innerHTML = `
-    //     <i>Optional</i> - suggest a GitHub repo to help solve <i class="fas fa-plus ml-5"></i>
-    //   `;
-    // document.querySelector(".optional").addEventListener("click", handleGitHubResult);
-
-    // githubRepoList = [];
+    emptyGitRepoList();
   }
 
   if (!event.target.matches("span.input")) {

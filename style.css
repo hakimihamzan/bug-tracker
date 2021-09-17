@@ -924,6 +924,9 @@ button.update:disabled {
   font-size: 16px;
   border: none;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  width: 120%;
 }
 
 .dropdown {
@@ -958,4 +961,18 @@ button.update:disabled {
 .dropdown:hover .dropbtn {
   background-color: transparent;
   color: #000000;
+}
+
+.get-started {
+  cursor: pointer;
+  text-align: center;
+  margin: 0 5px 5px 5px;
+  padding: 15px 50px;
+  width: 90%;
+  font-size: 1rem;
+  background-color: white;
+}
+
+.get-started:hover {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }

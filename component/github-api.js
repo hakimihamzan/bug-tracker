@@ -32,9 +32,9 @@ function callingApi(searchQuery) {
       addGitBtn.addEventListener("click", () => {
         let id = addGitBtn.getAttribute("data-id");
         githubRepoList.push(id);
+        console.log(githubRepoList);
+
         addGitBtn.style.visibility = "hidden";
-        document.querySelector(".optional").style.fontWeight = "800";
-        document.querySelector(".optional").style.cursor = "default";
 
         let convertedList = githubRepoList.map((item, i) => {
           return `<a href="${item}" target="_blank">Repo: #${i}</a>`;
@@ -42,13 +42,17 @@ function callingApi(searchQuery) {
 
         document.querySelector(".optional").innerHTML = `
             <div class="dropdown">
-              <div class="dropbtn">GIT REPO ADDED: ${githubRepoList.length}</div>
+              <div class="dropbtn">
+                <div>GIT REPO ADDED: ${githubRepoList.length}</div>
+                <div class="dispose-git"><i style="font-size: 1.3rem;" class="far fa-trash-alt filter-grey"></i></div>
+              </div>
               <div class="dropdown-content">
               ${convertedList.join(" ")}
               </div>
             </div> 
         `;
-        // document.querySelector(".optional").removeEventListener("click");
+
+        document.querySelector(".dispose-git").addEventListener("click", emptyGitRepoList);
       });
     });
     //   debugger;
@@ -59,4 +63,12 @@ function callingApi(searchQuery) {
     .then(handleData);
 }
 
-export { callingApi, githubRepoList };
+function emptyGitRepoList() {
+  githubRepoList = [];
+  document.querySelector(".optional").innerHTML = `
+    <i>Optional</i> - suggest a GitHub repo to help solve <i class="fas fa-plus ml-5"></i>
+  `;
+  console.log(githubRepoList);
+}
+
+export { callingApi, githubRepoList, emptyGitRepoList };

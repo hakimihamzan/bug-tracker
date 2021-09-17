@@ -230,25 +230,6 @@ async function deleteBug(uid) {
 
 let numberToBeAssigned;
 
-let sidebarQuery = {
-  // const q = query(bugsCollection, where("bugs", "==", "bugs"), orderBy("created_at", "desc"));
-  1: "everybugs", //created_at , desc
-
-  // const q = query(bugsCollection, where("bugs", "==", "bugs"), where("assigned_to", "==", "unassigned"), orderBy("created_at", "desc"));
-  2: "unassigned", // assigned_to : unassigned
-
-  3: "assigned-to-you", // assigned_to : dude-signed-in
-  4: "assigned-to-others", // assigned_to : not dude signed-in
-
-  // const q = query(bugsCollection, where("bugs", "==", "bugs"), where("prio", "!=", "closed"), orderBy("prio"), orderBy("created_at", "desc"));
-  5: "active", // priority: !closed
-
-  // const q = query(bugsCollection, where("bugs", "==", "bugs"), where("prio", "==", "closed"), orderBy("created_at", "desc"));
-  6: "inactive", // priority : closed
-
-  // const q = query(bugsCollection, where("bugs", "==", "bugs"), where("deleteBug", "==", true), orderBy("created_at", "desc"));
-  7: "deleted",
-};
 function changeNumberToBeAssigned(number) {
   numberToBeAssigned = number;
   if (numberToBeAssigned == 1) {
@@ -282,7 +263,7 @@ function createTableRow(snapshotChange) {
       <td><span class="${snapshotChange.doc.data().status}">${upperCaseStatus}</span> <span data-id="${snapshotChange.doc.id}"class="a-tag">${snapshotChange.doc.data().title}</span> - ${snapshotChange.doc.data().description}</td>
       <td><span class="${snapshotChange.doc.data().prio}">${capitalPrio}</span></td>
       <td> <span class="${assigned_to}">${assigned_to}</span></td>
-      <td>Bug Tracker</td>
+      <td style="text-align: center;"><img width="50%" src="img/logo_only.svg" alt="logo"></td>
   `;
 
   if (snapshotChange.doc.data().deleteBug) {
@@ -332,7 +313,7 @@ function snapShotListen(q) {
     });
 
     //setting numbers of bug
-    bugsNumberForRow(snapshot.docs.length);
+    changeBugsNumberForRow(snapshot.docs.length);
     // document.getElementById("bug-number").innerHTML = snapshot.docs.length;
 
     let allATag = document.querySelectorAll("span.a-tag");
@@ -345,7 +326,7 @@ function snapShotListen(q) {
   });
 }
 
-function bugsNumberForRow(num) {
+function changeBugsNumberForRow(num) {
   console.log(num);
   let test = document.querySelector(".select .inline").nextElementSibling;
   test.innerText = num;
