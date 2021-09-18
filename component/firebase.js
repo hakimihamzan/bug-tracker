@@ -305,10 +305,11 @@ function snapShotListen(q) {
         parentToReplace.replaceChild(newTRData, oldTRData);
       }
       if (change.type === "removed") {
-        let tr = document.querySelector(`[data-id='${change.doc.id}']`);
-        let allTD = document.querySelectorAll(".td-anim");
-        removeClassNameFromNodes(allTD, "td-anim");
-        document.querySelector("table.data").removeChild(tr);
+        // location.reload();
+        console.log(change.doc.id);
+        // let allTD = document.querySelectorAll(".td-anim");
+        // removeClassNameFromNodes(allTD, "td-anim");
+        // document.querySelector("table.data").removeChild(tr);
       }
     });
 
@@ -327,7 +328,7 @@ function snapShotListen(q) {
 }
 
 function changeBugsNumberForRow(num) {
-  console.log(num);
+  // console.log(num);
   let test = document.querySelector(".select .inline").nextElementSibling;
   test.innerText = num;
 }

@@ -237,7 +237,7 @@ submitBugButton.addEventListener("click", (e) => {
     // eventually remove modal
     document.querySelector(".modal-show").style.transform = "translateY(-150%)";
     document.querySelector(".modal-space").classList.remove("modal-anim");
-  } else if (title == "" && desc == "") {
+  } else if (title == "" || desc == "") {
     document.querySelector("input.title").style.border = "2px solid red";
     document.querySelector("span.input").style.border = "2px solid red";
   }
