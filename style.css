@@ -164,8 +164,7 @@ body {
 }
 
 .user-greet {
-  position: absolute;
-  bottom: 1rem;
+  margin-top: 20%;
 }
 
 .login-with-google-btn {
@@ -975,4 +974,21 @@ button.update:disabled {
 
 .get-started:hover {
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.gh-icon {
+  position: absolute;
+  bottom: 0.2rem;
+  font-size: 2.5rem;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 10%;
+}
+.gh-icon div {
+  margin: 0 10px;
+}
+
+.gh-icon a {
+  color: rgba(207, 207, 207, 0.514);
 }
