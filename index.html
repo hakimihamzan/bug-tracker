@@ -21,11 +21,11 @@
       <button class="dev">Dev</button>
       <button class="manager">Manager</button>
     </div>
-    
+
     <button class="logout">
       <i><img src="img/logout_white_24dp.svg" alt="" /></i> Logout
     </button>
-    
+
     <div class="nav-container">
       <img id="logo" src="img/logo-new.svg" alt="bug tracker logo" />
       <div class="get-started">GET STARTED HERE</div>
@@ -33,34 +33,38 @@
         <div data-id="1" class="side-btn select">
           <img class="filter-grey" src="img//radio_button_checked_white_24dp.svg" alt="login" />
           <div class="inline">Every Bugs</div>
-          <div class="inline number-every-bugs" id="bug-number"></div>
+          <div class="inline number-every-bugs bug-number"></div>
         </div>
         <div data-id="5" class="side-btn">
           <img class="filter-grey" src="img/visibility_white_24dp.svg" alt="login" />
           <div class="inline">Active</div>
-          <div class="inline number-active" id="bug-number"></div>
+          <div class="inline number-active bug-number"></div>
         </div>
         <div data-id="2" class="side-btn">
           <img class="filter-grey" src="img/indeterminate_check_box_white_24dp.svg" alt="login" />
           <div class="inline">Unassigned</div>
-          <div class="inline number-unassigned" id="bug-number"></div>
+          <div class="inline number-unassigned bug-number"></div>
         </div>
         <div data-id="6" class="side-btn">
           <img class="filter-grey" src="img/published_with_changes_white_24dp.svg" alt="login" />
           <div class="inline">Completed</div>
-          <div class="inline number-inactive" id="bug-number"></div>
+          <div class="inline number-inactive bug-number"></div>
         </div>
         <div data-id="7" class="side-btn">
           <!-- <img class="filter-grey" src="img/published_with_changes_white_24dp.svg" alt="login" /> -->
-          <i style="color: white; font-size: 1.3rem;" class="far fa-trash-alt filter-grey"></i>
+          <i style="color: white; font-size: 1.3rem" class="far fa-trash-alt filter-grey"></i>
           <div class="inline">Deleted</div>
-          <div class="inline number-inactive" id="bug-number"></div>
+          <div class="inline number-inactive bug-number"></div>
         </div>
       </div>
       <div class="user-greet"></div>
       <div class="gh-icon">
-        <div><a target="_blank" href="https://www.linkedin.com/in/hakimihamzan/"><i class="fab fa-linkedin"></i></a></div>
-        <div><a target="_blank" href="https://github.com/hakimihamzan"><i class="fab fa-github-square"></i></a></div>
+        <div>
+          <a target="_blank" href="https://www.linkedin.com/in/hakimihamzan/"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <div>
+          <a target="_blank" href="https://github.com/hakimihamzan"><i class="fab fa-github-square"></i></a>
+        </div>
       </div>
     </div>
 
@@ -93,11 +97,10 @@
             <div class="search-api">
               <form>
                 <input class="api-input" type="text" placeholder="search a Github repository" />
-                <button class="search-icon"><img src="img/search_white_24dp.svg" alt="search-icon"></i></button>
+                <button class="search-icon"><img src="img/search_white_24dp.svg" alt="search-icon" /></button>
               </form>
             </div>
-            <div class="search-result">
-            </div>
+            <div class="search-result"></div>
           </div>
           <div class="github">THANK YOU FOR POINTING US IN THE RIGHT DIRECTION</div>
         </div>
@@ -118,13 +121,11 @@
     </div>
 
     <div class="modal-more-info">
-      <div class="more-info">
-      </div>
+      <div class="more-info"></div>
       <div class="update-delete-btn">
         <button class="update">UPDATE</button>
         <button class="delete">DELETE</button>
       </div>
-
     </div>
 
     <div class="not-supported">
@@ -139,14 +140,10 @@
         </div>
       </div>
       <div class="para">
-        <div class="title-para">
-          Introduction
-        </div>
+        <div class="title-para">Introduction</div>
         <div class="content-container">
           <div class="content-para">
-            Welcome to the Bug Tracker. Thank you for visiting our website and help keeping us on our toes. 
-            The purpose of this website is to give users platform to submit any software defects they encountered while 
-            using our applications. If you intend to submit bugs or issues:
+            Welcome to the Bug Tracker. Thank you for visiting our website and help keeping us on our toes. The purpose of this website is to give users platform to submit any software defects they encountered while using our applications. If you intend to submit bugs or issues:
           </div>
           <div class="list-container">
             <ol>
@@ -157,57 +154,48 @@
               <li>Hit submit</li>
             </ol>
           </div>
-          <div class="content-para">
-            All submitted data will be sent to our database and we will squash every bug accordingly. Thank you.
-          </div>
-        </div>        
+          <div class="content-para">All submitted data will be sent to our database and we will squash every bug accordingly. Thank you.</div>
+        </div>
       </div>
       <div class="para">
-        <div class="title-para">
-          Dev to Devs
-        </div>
+        <div class="title-para">Dev to Devs</div>
         <div class="content-container">
           <div class="content-para">
-            This web app is a single page application that is built with Vanilla JavaScript, HTML&CSS, Firebase and GitHub API.
-            It demonstrates my skills as a software developer. The project is undergoing refactoring with MVC,
-            so that the spaghetti  JS code is no more. I implemented Authentication and Authorization using Firebase and separates roles between users.
-            Feel free to break the application and then submit the bug. 😬 Before you do, here's something you should know:
+            This web app is a single page application that is built with Vanilla JavaScript, HTML&CSS, Firebase and GitHub API. It demonstrates my skills as a software developer. The project is undergoing refactoring with MVC, so that the spaghetti JS code is no more. I
+            implemented Authentication and Authorization using Firebase and separates roles between users. Feel free to break the application and then submit the bug. 😬 Before you do, here's something useful to you:
           </div>
           <div class="list-container">
             <ul>
               <li>Demo account is provided for developer and manager (team lead). Each have different roles</li>
               <li>If you are submitter (using Google Sign-In), you can look any history related to bug and submit a bug</li>
               <li>Dev demo account can submit a bug, change status and priority of each bug</li>
-              <li>Manager demo account can submit a bug, change status and priority of each bug, assign bug to developer and delete a bug. 
-                But manager don't really delete the bug in the Firebase, because the would be catastrophic to my bottom line. Instead, when manager deletes a bug, it actually update bug status to deleted</li>
+              <li>
+                Manager demo account can submit a bug, change status and priority of each bug, assign bug to developer and delete a bug. But manager don't really delete the bug in the Firebase, because the would be catastrophic to my bottom line. Instead, when manager deletes a
+                bug, it actually update bug status to deleted
+              </li>
             </ul>
           </div>
-        </div>        
+        </div>
       </div>
       <div class="para">
-        <div class="title-para">
-          About
-        </div>
+        <div class="title-para">About</div>
         <div class="content-container">
           <div class="content-para">
-            I graduated from General Assembly JavaScript Bootcamp in August 2021. At the end of the class, each one of us is assigned final project.
-            So I browsed around YouTube searching for a perfect portfolio project, I stumbled accros the channel CoderFoundry and Bobby's suggestion
-            was to build something the hiring manager will recognize and that is bug/issue tracker. So I took on that journey to create this project.
-            Design inspried by: 
+            I graduated from General Assembly JavaScript Bootcamp in August 2021. At the end of the class, each one of us is assigned final project. So I browsed around YouTube searching for a perfect portfolio project, I stumbled accros the channel CoderFoundry and Bobby's
+            suggestion was to build something the hiring manager will recognize and that is bug/issue tracker. So I took on that journey to create this project. Design inspried by:
           </div>
           <div class="list-container">
             <ul>
-              <li><a target="_blank" href="https://coderthemes.com/hyper/creative/layouts-vertical.html">Hyper-V Bootstrap Framework</a></li>        
-              <li><a target="_blank" href="https://dribbble.com/shots/6398590-DoneDone-2-Mailbox-Home?showSimilarShots=true&_=1630390033997#">DoneDone 2 by Pixelmatters</a></li>        
+              <li><a target="_blank" href="https://coderthemes.com/hyper/creative/layouts-vertical.html">Hyper-V Bootstrap Framework</a></li>
+              <li><a target="_blank" href="https://dribbble.com/shots/6398590-DoneDone-2-Mailbox-Home?showSimilarShots=true&_=1630390033997#">DoneDone 2 by Pixelmatters</a></li>
             </ul>
           </div>
           <div class="content-para">
-            What do you think of this project? Is it good enough to WOW you? I am currently looking for developer opportunities and if you want
-            to hire me or just to share your story, connect with me on <a target="_blank" href="https://www.linkedin.com/in/hakimihamzan/">LinkedIn</a>. Buhbye.
+            What do you think of this project? Is it good enough to WOW you? I am currently looking for developer opportunities and if you want to hire me or just to share your story, connect with me on
+            <a target="_blank" href="https://www.linkedin.com/in/hakimihamzan/">LinkedIn</a>. Buhbye.
           </div>
-        </div>        
+        </div>
       </div>
-
     </div>
     <script type="module" src="component/firebase.js"></script>
     <script type="module" src="component/github-api.js"></script>
