@@ -302,7 +302,7 @@ getStartedButton.addEventListener("click", () => {
   document.body.style.overflowY = "hidden";
 });
 
-let closeGetStarted = document.querySelector(".close");
+let closeGetStarted = document.querySelector(".close i");
 closeGetStarted.addEventListener("click", () => {
   document.querySelector(".get-started-guide").style.transform = "translateY(500%)";
   document.body.style.overflowY = "scroll";

@@ -963,7 +963,7 @@ button.update:disabled {
 }
 
 .get-started {
-  border: 5px solid #e2cc8e;
+  border: 5px solid #f0cd6c;
   cursor: pointer;
   text-align: center;
   margin-bottom: 15px;
@@ -995,29 +995,73 @@ button.update:disabled {
 }
 
 .get-started-guide {
+  overflow-y: scroll;
+  text-align: justify;
   top: 4rem;
   position: fixed;
   width: 100vw;
   height: 100vh;
-  z-index: 1000;
+  z-index: 499;
   background-color: white;
   top: 0;
   transform: translateY(500%);
   transition: 0.2s;
-  padding: 2rem;
+  padding: 2rem 1rem 1rem;
 }
 
-div.close {
+.close i {
   cursor: pointer;
+  /* flex: 0.8; */
+}
+
+.close {
   font-size: 3.5rem;
   font-weight: lighter;
-  position: absolute;
   color: #313a46;
+  display: flex;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  /* justify-content: space-between; */
+}
+
+.close div {
+  font-size: 2rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* flex: 1; */
+}
+
+.close div img {
+  width: 370px;
+  height: auto;
+  padding: 1rem;
 }
 
 .para {
-  position: absolute;
   top: 7rem;
   left: 0;
   padding: 2rem;
+}
+
+.title-para {
+  font-size: 2.5rem;
+  text-transform: uppercase;
+}
+
+.content-para {
+  font-size: 1.4rem;
+}
+
+ul,
+ol {
+  width: 90%;
+}
+
+.list-container {
+  margin: 1rem 0;
+  display: flex;
+  font-size: 1.3rem;
+  justify-content: center;
 }
