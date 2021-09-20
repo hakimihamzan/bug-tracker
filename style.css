@@ -963,10 +963,11 @@ button.update:disabled {
 }
 
 .get-started {
+  border: 5px solid #e2cc8e;
   cursor: pointer;
   text-align: center;
-  margin: 0 5px 5px 5px;
-  padding: 15px 50px;
+  margin-bottom: 15px;
+  padding: 15px 40px;
   width: 90%;
   font-size: 1rem;
   background-color: white;
@@ -991,4 +992,32 @@ button.update:disabled {
 
 .gh-icon a {
   color: rgba(207, 207, 207, 0.514);
+}
+
+.get-started-guide {
+  top: 4rem;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background-color: white;
+  top: 0;
+  transform: translateY(500%);
+  transition: 0.2s;
+  padding: 2rem;
+}
+
+div.close {
+  cursor: pointer;
+  font-size: 3.5rem;
+  font-weight: lighter;
+  position: absolute;
+  color: #313a46;
+}
+
+.para {
+  position: absolute;
+  top: 7rem;
+  left: 0;
+  padding: 2rem;
 }

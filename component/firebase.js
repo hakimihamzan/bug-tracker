@@ -305,7 +305,7 @@ function snapShotListen(q) {
         parentToReplace.replaceChild(newTRData, oldTRData);
       }
       if (change.type === "removed") {
-        // location.reload();
+        location.reload();
         console.log(change.doc.id);
         // let allTD = document.querySelectorAll(".td-anim");
         // removeClassNameFromNodes(allTD, "td-anim");

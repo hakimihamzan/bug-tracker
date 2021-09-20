@@ -295,3 +295,15 @@ updateBugButton.addEventListener("click", (e) => {
   let assigned = document.querySelector("select.selected-assigned");
   updateThings(uid, status.value, prio.value, assigned.value);
 });
+
+let getStartedButton = document.querySelector(".get-started");
+getStartedButton.addEventListener("click", () => {
+  document.querySelector(".get-started-guide").style.transform = "translateY(0)";
+  document.body.style.overflowY = "hidden";
+});
+
+let closeGetStarted = document.querySelector(".close");
+closeGetStarted.addEventListener("click", () => {
+  document.querySelector(".get-started-guide").style.transform = "translateY(500%)";
+  document.body.style.overflowY = "scroll";
+});
